@@ -1,11 +1,12 @@
 ---
 title: "Title: Categorical Analysis on Diabetes"
-author: "Authors: Liangjie Lu, Windy, Luyang Zhang, Yaocao Chen"
+author: "Authors: Liangjie Lu, Weiting Lin, Luyang Zhang, Yaocao Chen"
 date: "Date: 2024-02-19"
 output: html_document
 ---
 
-```{r, setup, results='hide', message=FALSE, warning=FALSE}
+```{r, setup, results='hide', message=FALSE, warning=FALSE, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
 library(dplyr)
 library(knitr)
 library(kableExtra)
@@ -16,15 +17,24 @@ library(tseries)
 library(forecast)
 library(funtimes)
 ```
-## Data Loading and Preprocessing 
+
+## Data Loading and Preprocessing
 
 ```{r}
 diabetes.dat <- read.csv("diabetes.csv", header = TRUE)
+
+# Transform data Outcome from 0 to 'Diabetes' and "1" to 'No_Diabetes'
+diabetes.dat$Outcome[diabetes.dat$Outcome == "0"] <- 'Diabetes'
+diabetes.dat$Outcome[diabetes.dat$Outcome == "1"] <- 'No_Diabetes'
+
 diabetes.dat$Outcome <- diabetes.dat$Outcome %>% as.factor
 diabetes.dat$BMI.ord <- diabetes.dat$BMI %>% cut(
   breaks = c(-Inf, 18.5, 24.9, 29.9, Inf),
   labels = c("Underweight", "Healthy Weight","Overweight", "Obesity"),
   right = FALSE) %>% factor(levels = c("Underweight", "Healthy Weight", "Overweight", "Obesity"))
+
+
+
 ```
 
 ## Data Visualization
@@ -34,7 +44,9 @@ BMI.categories <- diabetes.dat$BMI.ord
 Outcome <- diabetes.dat$Outcome
 
 # Create a 2-way table
-table.dat <- table(BMI.categories, Outcome)
+table.dat <- table(BMI.categories,Outcome)
+
+
 
 kable(table.dat, "html", caption = "BMI Categories vs. Diabetes Outcome") %>%
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = F) %>%
@@ -46,14 +58,135 @@ mosaicplot(table.dat, main = "BMI Categories vs. Diabetes Outcome", col = c("lig
            xlab = "BMI Category", ylab = "Outcome")
 ```
 
-
 ## Test for Independence
 
-### X^2 and G^2
+### X\^2 and G\^2
 
 ```{r}
 
+final_data=diabetes.dat[c("Outcome","BMI.ord")]
 
+# Transform data BMI_categories to character type
+final_data$BMI.ord <- as.character(final_data$BMI.ord)
+# Transform data Outcome from 0 to 'Diabetes' and "1" to 'No_Diabetes'
+#final_data$Outcome[final_data$Outcome == "0"] <- 'Diabetes'
+#final_data$Outcome[final_data$Outcome == "1"] <- 'No_Diabetes'
+#final_data$Outcome<- as.character(final_data$Outcome)
+
+# Pivot table to show data after being grouped by Diabetes and BMI categories variables
+pivot_table <- final_data %>%
+  group_by(BMI.ord, Outcome) %>%
+  summarise(Count = n(), .groups = 'drop') 
+
+pivot_table<-tidyr::pivot_wider(pivot_table, names_from = Outcome, values_from = Count)
+
+# Transform vales of number of people with Diabetes or without Diabetes to numeric
+pivot_table$Diabetes<-as.numeric(pivot_table$Diabetes)
+pivot_table$No_Diabetes<-as.numeric(pivot_table$No_Diabetes)
+
+# Calculate the total number of people cross four different BMI categories
+pivot_table$total=pivot_table$Diabetes+pivot_table$No_Diabetes
+
+# Calculate the total number of people cross Two different Diabetes outcomes
+pivot_table[nrow(pivot_table)+1, ] <- list("total",sum(pivot_table$Diabetes),sum(pivot_table$No_Diabetes),sum(pivot_table$total))
+
+
+
+# Arrange BMI categories with order "Underweight", "Healthy weight","Overweight", "Obesity", "total" to better visulization and understanding
+pivot_table$BMI.ord <- factor(pivot_table$BMI.ord, 
+                                     levels = c("Underweight", "Healthy Weight",
+                                                "Overweight","Obesity","total"))
+pivot_table <- pivot_table %>% 
+  arrange(match(BMI.ord, levels(BMI.ord)))
+
+# final result 
+
+
+pivot_table %>%
+  kable("html", booktabs = TRUE, caption = "Summary of BMI Categories") %>%
+  kable_styling(position = "center", full_width = FALSE) %>%
+  column_spec(1, bold = TRUE, border_right = TRUE) %>%
+  add_header_above(c(" " = 1, "Outcomes" = 2, " " = 1))
+
+```
+
+$\mu_{ij}=n_{i+}n_{+j}$
+
+```{r}
+# mu_ij=ni+*n+j/n++
+mu_ij<-pivot_table
+for( i in 1:(nrow(pivot_table)-1)){
+  for(j in 2:(ncol(pivot_table)-1)){
+    mu_ij[i,j]<-pivot_table[i,ncol(pivot_table)]*pivot_table[nrow(pivot_table),j]/pivot_table[nrow(pivot_table),ncol(pivot_table)]
+    
+  }
+}
+
+mu_ij<-mu_ij[1:(nrow(mu_ij) - 1),1:(ncol(mu_ij) - 1)]
+mu_ij%>%
+  kable("html", booktabs = TRUE, caption = "$\\mu_{ij}$ table: $\\frac{n_{i+} + n_{+j}}{n_{++}}$") %>%
+  kable_styling(full_width = F, position = "center") %>%
+  column_spec(1, bold = TRUE, border_right = TRUE)
+  
+```
+
+```{r}
+#pearson table x^2
+pearson_table<-mu_ij
+pearson_value=0
+for( i in 1:(nrow(pivot_table)-1)){
+  for(j in 2:(ncol(pivot_table)-1)){
+   pearson_table[i,j]<-(mu_ij[i,j]-pivot_table[i,j])**2/mu_ij[i,j]
+   pearson_value=pearson_value+pearson_table[i,j]
+  }
+}
+print(paste0("value for X^2 (pearson's test) is ",pearson_value ))
+
+#Log-likelihood ratio G^2
+log_likelihood_table<-mu_ij
+log_likelihood_value=0
+for( i in 1:(nrow(pivot_table)-1)){
+  for(j in 2:(ncol(pivot_table)-1)){
+   log_likelihood_table[i,j]<-2*pivot_table[i,j]*log(pivot_table[i,j]/mu_ij[i,j])
+   log_likelihood_value=log_likelihood_value+log_likelihood_table[i,j]
+  }
+}
+
+print(paste0("value for G^2 (Log-likelihood ratio test) is ",log_likelihood_value ))
+
+
+```
+
+$H_0: \pi_{ij}=\pi_{i+} \pi_{+j}$
+
+$H_\alpha:$ at least one $\pi_{ij}\neq\pi_{i+} \pi_{+j}$
+
+```{r}
+critical_value=qchisq(p = .95, df = 3)
+
+if(pearson_value > critical_value){
+  cat("result for pearson independence test under 95% C.I:  \nwe can reject H0, and Diabetes outcomes and MBI categories are dependent!\n")
+  
+}else{
+   cat("result for pearson independence test under 95% C.I:  \nwe can't reject H0, and Diabetes outcomes and MBI categories are independent!\n")
+}
+```
+
+```{r}
+critical_value=qchisq(p = .95, df = 3)
+
+if(log_likelihood_value > critical_value){
+  cat("result for log likelihood ratio (LR) independence test under 95% C.I: \nwe can reject H0, and Diabetes outcomes and MBI categories are dependent!\n")
+}else{
+   cat("we can't reject H0, and Diabetes outcomes and MBI categories are independent!")
+}
+```
+
+```{r}
+# Pearson's correlation test
+df=pivot_table
+df_filtered <- df[1:(nrow(df) - 1), ]
+cor.test(df_filtered$Diabetes, df_filtered$No_Diabetes, method = "pearson")
 ```
 
 ### ordinal residuals
