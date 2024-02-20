@@ -1,0 +1,80 @@
+---
+title: "Title: Categorical Analysis on Diabetes"
+author: "Authors: Liangjie Lu, Windy, Luyang Zhang, Yaocao Chen"
+date: "Date: 2024-02-19"
+output: html_document
+---
+
+```{r, setup, results='hide', message=FALSE, warning=FALSE}
+library(dplyr)
+library(knitr)
+library(kableExtra)
+library(stats)
+library(zoo)
+library(lubridate)
+library(tseries)
+library(forecast)
+library(funtimes)
+```
+## Data Loading and Preprocessing 
+
+```{r}
+diabetes.dat <- read.csv("diabetes.csv", header = TRUE)
+diabetes.dat$Outcome <- diabetes.dat$Outcome %>% as.factor
+diabetes.dat$BMI.ord <- diabetes.dat$BMI %>% cut(
+  breaks = c(-Inf, 18.5, 24.9, 29.9, Inf),
+  labels = c("Underweight", "Healthy Weight","Overweight", "Obesity"),
+  right = FALSE) %>% factor(levels = c("Underweight", "Healthy Weight", "Overweight", "Obesity"))
+```
+
+## Data Visualization
+
+```{r}
+BMI.categories <- diabetes.dat$BMI.ord
+Outcome <- diabetes.dat$Outcome
+
+# Create a 2-way table
+table.dat <- table(BMI.categories, Outcome)
+
+kable(table.dat, "html", caption = "BMI Categories vs. Diabetes Outcome") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = F) %>%
+  add_header_above(c(" " = 1, "Outcome" = 2))
+
+
+# Generate mosaic plot
+mosaicplot(table.dat, main = "BMI Categories vs. Diabetes Outcome", col = c("lightblue", "salmon"),
+           xlab = "BMI Category", ylab = "Outcome")
+```
+
+
+## Test for Independence
+
+### X^2 and G^2
+
+```{r}
+
+
+```
+
+### ordinal residuals
+
+```{r}
+
+```
+
+### Fisher Exact tests
+
+```{r}
+
+```
+
+### logistic regression (if approved by professor, TBD)
+
+```{r}
+
+
+```
+
+```{r}
+sessionInfo()
+```
