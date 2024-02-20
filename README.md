@@ -1,5 +1,5 @@
 # Categorical-Analysis
-Categorical Analysis on Kaggle Diabetes Dataset 
+**Introduction:** Categorical Analysis on Kaggle Diabetes Dataset 
 
 **Author:** Liangjie Lu, Windy, Luyang Zhang, Yaocao Chen
 
