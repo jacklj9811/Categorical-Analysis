@@ -1016,6 +1016,83 @@ if(p.value &lt; significance.level){
 </div>
 <div id="logistic-regression-if-approved-by-professor-tbd" class="section level3">
 <h3>logistic regression (if approved by professor, TBD)</h3>
+<pre class="r"><code>diabetes.dat %&gt;% head()</code></pre>
+<pre><code>##   Pregnancies Glucose BloodPressure SkinThickness Insulin  BMI
+## 1           6     148            72            35       0 33.6
+## 2           1      85            66            29       0 26.6
+## 3           8     183            64             0       0 23.3
+## 4           1      89            66            23      94 28.1
+## 5           0     137            40            35     168 43.1
+## 6           5     116            74             0       0 25.6
+##   DiabetesPedigreeFunction Age     Outcome Outcome.val        BMI.ord BMI.mean
+## 1                    0.627  50 No_Diabetes           1        Obesity 36.48197
+## 2                    0.351  31    Diabetes           0     Overweight 27.41657
+## 3                    0.672  32 No_Diabetes           1 Healthy Weight 22.74752
+## 4                    0.167  21    Diabetes           0     Overweight 27.41657
+## 5                    2.288  33 No_Diabetes           1        Obesity 36.48197
+## 6                    0.201  30    Diabetes           0     Overweight 27.41657</code></pre>
+<pre class="r"><code>model_full &lt;- glm(factor(Outcome) ~ ., data = diabetes.dat, family = &#39;binomial&#39;)</code></pre>
+<pre><code>## Warning: glm.fit:算法没有聚合</code></pre>
+<pre class="r"><code>summary(model_full)</code></pre>
+<pre><code>## 
+## Call:
+## glm(formula = factor(Outcome) ~ ., family = &quot;binomial&quot;, data = diabetes.dat)
+## 
+## Deviance Residuals: 
+##        Min          1Q      Median          3Q         Max  
+## -2.409e-06  -2.409e-06  -2.409e-06   2.409e-06   2.409e-06  
+## 
+## Coefficients: (1 not defined because of singularities)
+##                            Estimate Std. Error z value Pr(&gt;|z|)
+## (Intercept)              -2.657e+01  1.089e+05   0.000    1.000
+## Pregnancies              -2.945e-12  4.626e+03   0.000    1.000
+## Glucose                  -4.350e-15  4.969e+02   0.000    1.000
+## BloodPressure            -7.016e-14  7.295e+02   0.000    1.000
+## SkinThickness            -5.010e-13  9.962e+02   0.000    1.000
+## Insulin                   1.600e-13  1.338e+02   0.000    1.000
+## BMI                      -4.727e-12  3.066e+03   0.000    1.000
+## DiabetesPedigreeFunction -4.685e-11  4.045e+04   0.000    1.000
+## Age                       9.528e-13  1.381e+03   0.000    1.000
+## Outcome.val               5.313e+01  3.259e+04   0.002    0.999
+## BMI.ordHealthy Weight     7.244e-11  1.129e+05   0.000    1.000
+## BMI.ordOverweight         9.549e-11  1.175e+05   0.000    1.000
+## BMI.ordObesity            1.373e-10  1.329e+05   0.000    1.000
+## BMI.mean                         NA         NA      NA       NA
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 9.9348e+02  on 767  degrees of freedom
+## Residual deviance: 4.4556e-09  on 755  degrees of freedom
+## AIC: 26
+## 
+## Number of Fisher Scoring iterations: 25</code></pre>
+<pre class="r"><code>model1 &lt;- glm(factor(Outcome) ~ BMI, data = diabetes.dat, family = &#39;binomial&#39;)
+summary(model1)</code></pre>
+<pre><code>## 
+## Call:
+## glm(formula = factor(Outcome) ~ BMI, family = &quot;binomial&quot;, data = diabetes.dat)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -1.9209  -0.9178  -0.6838   1.2351   2.7244  
+## 
+## Coefficients:
+##             Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept) -3.68641    0.40896  -9.014  &lt; 2e-16 ***
+## BMI          0.09353    0.01205   7.761 8.45e-15 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 993.48  on 767  degrees of freedom
+## Residual deviance: 920.71  on 766  degrees of freedom
+## AIC: 924.71
+## 
+## Number of Fisher Scoring iterations: 4</code></pre>
+</div>
+<div id="confounding-variable-age" class="section level3">
+<h3>Confounding Variable – Age</h3>
 <pre class="r"><code>sessionInfo()</code></pre>
 <pre><code>## R version 4.2.3 (2023-03-15 ucrt)
 ## Platform: x86_64-w64-mingw32/x64 (64-bit)
