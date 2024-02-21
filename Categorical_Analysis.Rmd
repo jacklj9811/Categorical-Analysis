@@ -205,6 +205,18 @@ cor.test(df_filtered$Diabetes, df_filtered$No_Diabetes, method = "pearson")
 
 ```{r}
 
+diabetes.dat %>% head()
+model_full <- glm(factor(Outcome) ~ ., data = diabetes.dat, family = 'binomial')
+summary(model_full)
+```
+
+```{r}
+model1 <- glm(factor(Outcome) ~ BMI, data = diabetes.dat, family = 'binomial')
+summary(model1)
+```
+
+### Confounding Variable -- Age
+```{r}
 
 ```
 
