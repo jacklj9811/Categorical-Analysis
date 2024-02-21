@@ -24,6 +24,7 @@ library(funtimes)
 diabetes.dat <- read.csv("diabetes.csv", header = TRUE)
 
 # Transform data Outcome from 0 to 'Diabetes' and "1" to 'No_Diabetes'
+diabetes.dat$Outcome.val <- diabetes.dat$Outcome
 diabetes.dat$Outcome[diabetes.dat$Outcome == "0"] <- 'Diabetes'
 diabetes.dat$Outcome[diabetes.dat$Outcome == "1"] <- 'No_Diabetes'
 
@@ -140,7 +141,7 @@ for( i in 1:(nrow(pivot_table)-1)){
    pearson_value=pearson_value+pearson_table[i,j]
   }
 }
-print(paste0("value for X^2 (pearson's test) is ",pearson_value ))
+print(paste0("Value for X^2 (pearson's test) is ",pearson_value ))
 
 #Log-likelihood ratio G^2
 log_likelihood_table<-mu_ij
@@ -152,7 +153,7 @@ for( i in 1:(nrow(pivot_table)-1)){
   }
 }
 
-print(paste0("value for G^2 (Log-likelihood ratio test) is ",log_likelihood_value ))
+print(paste0("Value for G^2 (Log-likelihood ratio test) is ",log_likelihood_value ))
 
 
 ```
@@ -165,10 +166,10 @@ $H_\alpha:$ at least one $\pi_{ij}\neq\pi_{i+} \pi_{+j}$
 critical_value=qchisq(p = .95, df = 3)
 
 if(pearson_value > critical_value){
-  cat("result for pearson independence test under 95% C.I:  \nwe can reject H0, and Diabetes outcomes and MBI categories are dependent!\n")
+  cat("Result for pearson independence test under 95% C.I:  \nWe can reject H0. Diabetes outcomes are dependent on and BMI categories!\n")
   
 }else{
-   cat("result for pearson independence test under 95% C.I:  \nwe can't reject H0, and Diabetes outcomes and MBI categories are independent!\n")
+   cat("Result for pearson independence test under 95% C.I:  \nWe can't reject H0, and Diabetes outcomes and BMI categories are independent!\n")
 }
 ```
 
@@ -176,9 +177,9 @@ if(pearson_value > critical_value){
 critical_value=qchisq(p = .95, df = 3)
 
 if(log_likelihood_value > critical_value){
-  cat("result for log likelihood ratio (LR) independence test under 95% C.I: \nwe can reject H0, and Diabetes outcomes and MBI categories are dependent!\n")
+  cat("Result for log likelihood ratio (LR) independence test under 95% C.I: \nWe can reject H0. Diabetes outcomes are dependent on and BMI categories!\n")
 }else{
-   cat("we can't reject H0, and Diabetes outcomes and MBI categories are independent!")
+   cat("We can't reject H0, and Diabetes outcomes and BMI categories are independent!")
 }
 ```
 
@@ -192,8 +193,37 @@ cor.test(df_filtered$Diabetes, df_filtered$No_Diabetes, method = "pearson")
 ### ordinal residuals
 
 ```{r}
+# Add v values directly to the data frame
+# v values are group-wise means of BMI over BMI categories
+diabetes.dat$BMI.mean <- ave(diabetes.dat$BMI, diabetes.dat$BMI.ord, FUN = mean)
 
+# Ordinal categorical estimated correlation
+r.BMI.mean.Outcome <- cor(diabetes.dat$BMI.mean, diabetes.dat$Outcome.val)
+cat(paste0("Value for ordinal categorical estimated correlation between diabetes outcomes and BMI categories is ",r.BMI.mean.Outcome ))
+
+# Exact estimated correlation
+r.BMI.Outcome <- cor(diabetes.dat$BMI, diabetes.dat$Outcome.val)
+cat(paste0("Value for exact estimated correlation between diabetes outcomes and BMI categories is ",r.BMI.Outcome ))
+
+# These r values are not so much different from each other
+if(abs(r.BMI.mean.Outcome - r.BMI.Outcome) / r.BMI.Outcome < 0.01){
+  cat("Value for ordinal categorical estimated correlation and value for exact estimated correlation are not so much different from each other.\n")
+}else{
+   cat("Value for ordinal categorical estimated correlation and value for exact estimated correlation are not the same thing.\n")
+}
+
+# H0: rho = 0 vs. H1: rho not= 0
+n <- nrow(diabetes.dat)
+M <- (n - 1) * r.BMI.mean.Outcome ^ 2
+p.value <- 1-pchisq(M, df = 1)
+significance.level <- 0.001
+if(p.value < significance.level){
+  cat("Reject H0 at significance level 0.001. The population correlation between Diabetes outcomes and BMI categories is not 0. Diabetes outcomes are dependent on and BMI categories!\n")
+}else{
+   cat("We can't reject H0 at significance level 0.001. The population correlation between Diabetes outcomes and BMI categories is 0. Diabetes outcomes and BMI categories are independent!\n")
+}
 ```
+
 
 ### Fisher Exact tests
 
