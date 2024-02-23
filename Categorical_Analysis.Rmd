@@ -64,11 +64,17 @@ mosaicplot(table.dat, main = "BMI Categories vs. Diabetes Outcome", col = c("lig
 ### X\^2 and G\^2
 
 ```{r}
-
+# not merge
 final_data=diabetes.dat[c("Outcome","BMI.ord")]
 
+# Merge Obesity/ not Obesity
 # Transform data BMI_categories to character type
 final_data$BMI.ord <- as.character(final_data$BMI.ord)
+final_data$BMI.ord[final_data$BMI.ord =="Underweight"]<-"No Obesity"
+final_data$BMI.ord[final_data$BMI.ord =="Healthy Weight"]<-"No Obesity"
+final_data$BMI.ord[final_data$BMI.ord == "Overweight"]<-"Obesity"
+
+
 # Transform data Outcome from 0 to 'Diabetes' and "1" to 'No_Diabetes'
 #final_data$Outcome[final_data$Outcome == "0"] <- 'Diabetes'
 #final_data$Outcome[final_data$Outcome == "1"] <- 'No_Diabetes'
@@ -93,10 +99,17 @@ pivot_table[nrow(pivot_table)+1, ] <- list("total",sum(pivot_table$Diabetes),sum
 
 
 
-# Arrange BMI categories with order "Underweight", "Healthy weight","Overweight", "Obesity", "total" to better visulization and understanding
+# Arrange BMI categories with order "Underweight", "Healthy Weight","Overweight", "Obesity", "total" to better visulization and understanding
+
+## not merge
+#pivot_table$BMI.ord <- factor(pivot_table$BMI.ord, 
+#                                     levels = c("Underweight", "Healthy Weight",
+#                                                "Overweight","Obesity","total"))
+
+# merge
 pivot_table$BMI.ord <- factor(pivot_table$BMI.ord, 
-                                     levels = c("Underweight", "Healthy Weight",
-                                                "Overweight","Obesity","total"))
+                                     levels = c("No Obesity","Obesity","total"))
+
 pivot_table <- pivot_table %>% 
   arrange(match(BMI.ord, levels(BMI.ord)))
 
@@ -186,8 +199,14 @@ if(log_likelihood_value > critical_value){
 ```{r}
 # Pearson's correlation test
 df=pivot_table
-df_filtered <- df[1:(nrow(df) - 1), ]
-cor.test(df_filtered$Diabetes, df_filtered$No_Diabetes, method = "pearson")
+df_filtered <- df[1:(nrow(df) - 1), 2:3]
+print(df_filtered )
+
+#Phi Coefficient
+test <- chisq.test(df_filtered)
+phi <- sqrt(test$statistic) / sum(df_filtered)
+print(phi)
+#cor.test(df_filtered$Diabetes, df_filtered$No_Diabetes, method = "pearson")
 ```
 
 ### ordinal residuals
