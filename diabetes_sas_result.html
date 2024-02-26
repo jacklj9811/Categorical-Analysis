@@ -1,0 +1,2184 @@
+<!DOCTYPE html>
+<html class="ods_3866fb74-e852-4701-b114-172553a0d876" lang="zh" xml:lang="zh" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="utf-8"/>
+<meta content="SAS 9.4" name="generator"/>
+<title>结果: diabetes.sas</title>
+<style>
+/*<![CDATA[*/
+.ods_3866fb74-e852-4701-b114-172553a0d876 .body.c section > table, .ods_3866fb74-e852-4701-b114-172553a0d876 .body.c section > pre, .ods_3866fb74-e852-4701-b114-172553a0d876 .body.c div > table,
+.ods_3866fb74-e852-4701-b114-172553a0d876 .body.c div > pre, .ods_3866fb74-e852-4701-b114-172553a0d876 .body.c article > table, .ods_3866fb74-e852-4701-b114-172553a0d876 .body.c article > pre,
+.ods_3866fb74-e852-4701-b114-172553a0d876 .body.j section > table, .ods_3866fb74-e852-4701-b114-172553a0d876 .body.j section > pre, .ods_3866fb74-e852-4701-b114-172553a0d876 .body.j div > table,
+.ods_3866fb74-e852-4701-b114-172553a0d876 .body.j div > pre, .ods_3866fb74-e852-4701-b114-172553a0d876 .body.j article > table, .ods_3866fb74-e852-4701-b114-172553a0d876 .body.j article > pre,
+.ods_3866fb74-e852-4701-b114-172553a0d876 .body.c p.note, .ods_3866fb74-e852-4701-b114-172553a0d876 .body.c p.warning, .ods_3866fb74-e852-4701-b114-172553a0d876 .body.c p.error, .ods_3866fb74-e852-4701-b114-172553a0d876 .body.c p.fatal,
+.ods_3866fb74-e852-4701-b114-172553a0d876 .body.j p.note, .ods_3866fb74-e852-4701-b114-172553a0d876 .body.j p.warning, .ods_3866fb74-e852-4701-b114-172553a0d876 .body.j p.error, .ods_3866fb74-e852-4701-b114-172553a0d876 .body.j p.fatal,
+.ods_3866fb74-e852-4701-b114-172553a0d876 .body.c > table.layoutcontainer, .ods_3866fb74-e852-4701-b114-172553a0d876 .body.j > table.layoutcontainer { margin-left: auto; margin-right: auto }
+.ods_3866fb74-e852-4701-b114-172553a0d876 .layoutregion.l table, .ods_3866fb74-e852-4701-b114-172553a0d876 .layoutregion.l pre, .ods_3866fb74-e852-4701-b114-172553a0d876 .layoutregion.l p.note,
+.ods_3866fb74-e852-4701-b114-172553a0d876 .layoutregion.l p.warning, .ods_3866fb74-e852-4701-b114-172553a0d876 .layoutregion.l p.error, .ods_3866fb74-e852-4701-b114-172553a0d876 .layoutregion.l p.fatal { margin-left: 0 }
+.ods_3866fb74-e852-4701-b114-172553a0d876 .layoutregion.c table, .ods_3866fb74-e852-4701-b114-172553a0d876 .layoutregion.c pre, .ods_3866fb74-e852-4701-b114-172553a0d876 .layoutregion.c p.note,
+.ods_3866fb74-e852-4701-b114-172553a0d876 .layoutregion.c p.warning, .ods_3866fb74-e852-4701-b114-172553a0d876 .layoutregion.c p.error, .ods_3866fb74-e852-4701-b114-172553a0d876 .layoutregion.c p.fatal { margin-left: auto; margin-right: auto }
+.ods_3866fb74-e852-4701-b114-172553a0d876 .layoutregion.r table, .ods_3866fb74-e852-4701-b114-172553a0d876 .layoutregion.r pre, .ods_3866fb74-e852-4701-b114-172553a0d876 .layoutregion.r p.note,
+.ods_3866fb74-e852-4701-b114-172553a0d876 .layoutregion.r table, .ods_3866fb74-e852-4701-b114-172553a0d876 .layoutregion.r pre, .ods_3866fb74-e852-4701-b114-172553a0d876 .layoutregion.r p.note,
+.ods_3866fb74-e852-4701-b114-172553a0d876 .layoutregion.r p.warning, .ods_3866fb74-e852-4701-b114-172553a0d876 .layoutregion.r p.error, .ods_3866fb74-e852-4701-b114-172553a0d876 .layoutregion.r p.fatal { margin-right: 0 }
+.ods_3866fb74-e852-4701-b114-172553a0d876 article, .ods_3866fb74-e852-4701-b114-172553a0d876 aside, .ods_3866fb74-e852-4701-b114-172553a0d876 details, .ods_3866fb74-e852-4701-b114-172553a0d876 figcaption, .ods_3866fb74-e852-4701-b114-172553a0d876 figure, .ods_3866fb74-e852-4701-b114-172553a0d876 footer, .ods_3866fb74-e852-4701-b114-172553a0d876 header, .ods_3866fb74-e852-4701-b114-172553a0d876 hgroup, .ods_3866fb74-e852-4701-b114-172553a0d876 nav, .ods_3866fb74-e852-4701-b114-172553a0d876 section { display: block }
+html.ods_3866fb74-e852-4701-b114-172553a0d876 { font-size: 100% }
+.ods_3866fb74-e852-4701-b114-172553a0d876 .body { margin: 1em; font-size: 13px; line-height: 1.231 }
+.ods_3866fb74-e852-4701-b114-172553a0d876 sup { position: relative; vertical-align: baseline; bottom: 0.25em; font-size: 0.8em }
+.ods_3866fb74-e852-4701-b114-172553a0d876 sub { position: relative; vertical-align: baseline; top: 0.25em; font-size: 0.8em }
+.ods_3866fb74-e852-4701-b114-172553a0d876 ul, .ods_3866fb74-e852-4701-b114-172553a0d876 ol { margin: 1em 0; padding: 0 0 0 40px }
+.ods_3866fb74-e852-4701-b114-172553a0d876 dd { margin: 0 0 0 40px }
+.ods_3866fb74-e852-4701-b114-172553a0d876 nav ul, .ods_3866fb74-e852-4701-b114-172553a0d876 nav ol { list-style: none; list-style-image: none; margin: 0; padding: 0 }
+.ods_3866fb74-e852-4701-b114-172553a0d876 img { border: 0; vertical-align: middle }
+.ods_3866fb74-e852-4701-b114-172553a0d876 svg:not(:root) { overflow: hidden }
+.ods_3866fb74-e852-4701-b114-172553a0d876 figure { margin: 0 }
+.ods_3866fb74-e852-4701-b114-172553a0d876 table { border-collapse: collapse; border-spacing: 0 }
+.ods_3866fb74-e852-4701-b114-172553a0d876 .layoutcontainer { border-collapse: separate; border-spacing: 0 }
+.ods_3866fb74-e852-4701-b114-172553a0d876 p { margin-top: 0; text-align: left }
+.ods_3866fb74-e852-4701-b114-172553a0d876 h1.heading1 { text-align: left }
+.ods_3866fb74-e852-4701-b114-172553a0d876 h2.heading2 { text-align: left }
+.ods_3866fb74-e852-4701-b114-172553a0d876 h3.heading3 { text-align: left }
+.ods_3866fb74-e852-4701-b114-172553a0d876 h4.heading4 { text-align: left }
+.ods_3866fb74-e852-4701-b114-172553a0d876 h5.heading5 { text-align: left }
+.ods_3866fb74-e852-4701-b114-172553a0d876 h6.heading6 { text-align: left }
+.ods_3866fb74-e852-4701-b114-172553a0d876 span { text-align: left }
+.ods_3866fb74-e852-4701-b114-172553a0d876 table { margin-bottom: 1em }
+.ods_3866fb74-e852-4701-b114-172553a0d876 td, .ods_3866fb74-e852-4701-b114-172553a0d876 th { text-align: left; padding: 3px 6px; vertical-align: top }
+.ods_3866fb74-e852-4701-b114-172553a0d876 td[class$="fixed"], .ods_3866fb74-e852-4701-b114-172553a0d876 th[class$="fixed"] { white-space: pre }
+.ods_3866fb74-e852-4701-b114-172553a0d876 section, .ods_3866fb74-e852-4701-b114-172553a0d876 article { padding-top: 1px; padding-bottom: 8px }
+.ods_3866fb74-e852-4701-b114-172553a0d876 hr.pagebreak { height: 0px; border: 0; border-bottom: 1px solid #c0c0c0; margin: 1em 0 }
+.ods_3866fb74-e852-4701-b114-172553a0d876 .stacked-value { text-align: left; display: block }
+.ods_3866fb74-e852-4701-b114-172553a0d876 .stacked-cell > .stacked-value, .ods_3866fb74-e852-4701-b114-172553a0d876 td.data > td.data, .ods_3866fb74-e852-4701-b114-172553a0d876 th.data > td.data, .ods_3866fb74-e852-4701-b114-172553a0d876 th.data > th.data, .ods_3866fb74-e852-4701-b114-172553a0d876 td.data > th.data, .ods_3866fb74-e852-4701-b114-172553a0d876 th.header > th.header { border: 0 }
+.ods_3866fb74-e852-4701-b114-172553a0d876 .stacked-cell > div.data { border-width: 0 }
+.ods_3866fb74-e852-4701-b114-172553a0d876 .systitleandfootercontainer { white-space: nowrap; margin-bottom: 1em }
+.ods_3866fb74-e852-4701-b114-172553a0d876 .systitleandfootercontainer > p { margin: 0 }
+.ods_3866fb74-e852-4701-b114-172553a0d876 .systitleandfootercontainer > p > span { display: inline-block; width: 100%; white-space: normal }
+.ods_3866fb74-e852-4701-b114-172553a0d876 .batch { display: table }
+.ods_3866fb74-e852-4701-b114-172553a0d876 .toc { display: none }
+.ods_3866fb74-e852-4701-b114-172553a0d876 .proc_note_group, .ods_3866fb74-e852-4701-b114-172553a0d876 .proc_title_group { margin-bottom: 1em }
+.ods_3866fb74-e852-4701-b114-172553a0d876 p.proctitle { margin: 0 }
+.ods_3866fb74-e852-4701-b114-172553a0d876 p.note, .ods_3866fb74-e852-4701-b114-172553a0d876 p.warning, .ods_3866fb74-e852-4701-b114-172553a0d876 p.error, .ods_3866fb74-e852-4701-b114-172553a0d876 p.fatal { display: table }
+.ods_3866fb74-e852-4701-b114-172553a0d876 .notebanner, .ods_3866fb74-e852-4701-b114-172553a0d876 .warnbanner, .ods_3866fb74-e852-4701-b114-172553a0d876 .errorbanner, .ods_3866fb74-e852-4701-b114-172553a0d876 .fatalbanner,
+.ods_3866fb74-e852-4701-b114-172553a0d876 .notecontent, .ods_3866fb74-e852-4701-b114-172553a0d876 .warncontent, .ods_3866fb74-e852-4701-b114-172553a0d876 .errorcontent, .ods_3866fb74-e852-4701-b114-172553a0d876 .fatalcontent { display: table-cell; padding: 0.5em }
+.ods_3866fb74-e852-4701-b114-172553a0d876 .notebanner, .ods_3866fb74-e852-4701-b114-172553a0d876 .warnbanner, .ods_3866fb74-e852-4701-b114-172553a0d876 .errorbanner, .ods_3866fb74-e852-4701-b114-172553a0d876 .fatalbanner { padding-right: 0 }
+.ods_3866fb74-e852-4701-b114-172553a0d876 .body > div > ol li { text-align: left }
+.ods_3866fb74-e852-4701-b114-172553a0d876 .beforecaption > h4 { margin-top: 0; margin-bottom: 0 }
+.ods_3866fb74-e852-4701-b114-172553a0d876 .c { text-align: center }
+.ods_3866fb74-e852-4701-b114-172553a0d876 .r { text-align: right }
+.ods_3866fb74-e852-4701-b114-172553a0d876 .l { text-align: left }
+.ods_3866fb74-e852-4701-b114-172553a0d876 .j { text-align: justify }
+.ods_3866fb74-e852-4701-b114-172553a0d876 .d { text-align: right }
+.ods_3866fb74-e852-4701-b114-172553a0d876 .b { vertical-align: bottom }
+.ods_3866fb74-e852-4701-b114-172553a0d876 .m { vertical-align: middle }
+.ods_3866fb74-e852-4701-b114-172553a0d876 .t { vertical-align: top }
+.ods_3866fb74-e852-4701-b114-172553a0d876 .accessiblecaption {
+    background-color: #fafbfe;
+    color: #112277;
+    font-family: MYingHei_18030_C-Medium, Helvetica, Helv, sans-serif;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: bold;
+}
+.ods_3866fb74-e852-4701-b114-172553a0d876 a:active { color: #800080 }
+.ods_3866fb74-e852-4701-b114-172553a0d876 .aftercaption {
+    background-color: #fafbfe;
+    border-spacing: 0;
+    color: #112277;
+    font-family: MYingHei_18030_C-Medium, Helvetica, Helv, sans-serif;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: bold;
+    padding-top: 4pt;
+}
+.ods_3866fb74-e852-4701-b114-172553a0d876 .batch > colgroup {
+    border-left: 1px solid #c1c1c1;
+    border-right: 1px solid #c1c1c1;
+}
+.ods_3866fb74-e852-4701-b114-172553a0d876 .batch > tbody, .ods_3866fb74-e852-4701-b114-172553a0d876 .batch > thead, .ods_3866fb74-e852-4701-b114-172553a0d876 .batch > tfoot {
+    border-top: 1px solid #c1c1c1;
+    border-bottom: 1px solid #c1c1c1;
+}
+.ods_3866fb74-e852-4701-b114-172553a0d876 .batch { border: hidden; }
+.ods_3866fb74-e852-4701-b114-172553a0d876 .batch {
+    background-color: #fafbfe;
+    border: 1px solid #c1c1c1;
+    border-collapse: separate;
+    border-spacing: 1px;
+    color: #000000;
+    font-family: CSongGB18030C-LightHWL, Courier, monospace, sans-serif;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+    padding: 7px;
+    }
+.ods_3866fb74-e852-4701-b114-172553a0d876 .beforecaption {
+    background-color: #fafbfe;
+    border-spacing: 0;
+    color: #112277;
+    font-family: MYingHei_18030_C-Medium, Helvetica, Helv, sans-serif;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: bold;
+}
+.ods_3866fb74-e852-4701-b114-172553a0d876 .body {
+    background-color: #fafbfe;
+    color: #000000;
+    font-family: MYingHei_18030_C-Medium, Helvetica, Helv, sans-serif;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+    margin-left: 8px;
+    margin-right: 8px;
+}
+.ods_3866fb74-e852-4701-b114-172553a0d876 .bodydate {
+    background-color: #fafbfe;
+    border-spacing: 0;
+    color: #000000;
+    font-family: MYingHei_18030_C-Medium, Helvetica, Helv, sans-serif;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+    text-align: right;
+    vertical-align: top;
+    width: 100%;
+}
+.ods_3866fb74-e852-4701-b114-172553a0d876 .bycontentfolder {
+    color: #000000;
+    font-family: MYingHei_18030_C-Medium, Helvetica, Helv, sans-serif;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+    list-style-type: none;
+    margin-left: 6pt;
+}
+.ods_3866fb74-e852-4701-b114-172553a0d876 .byline {
+    background-color: #fafbfe;
+    border-spacing: 0;
+    color: #112277;
+    font-family: MYingHei_18030_C-Medium, Helvetica, Helv, sans-serif;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: bold;
+}
+.ods_3866fb74-e852-4701-b114-172553a0d876 .bylinecontainer > col, .ods_3866fb74-e852-4701-b114-172553a0d876 .bylinecontainer > colgroup > col, .ods_3866fb74-e852-4701-b114-172553a0d876 .bylinecontainer > colgroup, .ods_3866fb74-e852-4701-b114-172553a0d876 .bylinecontainer > tr, .ods_3866fb74-e852-4701-b114-172553a0d876 .bylinecontainer > * > tr, .ods_3866fb74-e852-4701-b114-172553a0d876 .bylinecontainer > thead, .ods_3866fb74-e852-4701-b114-172553a0d876 .bylinecontainer > tbody, .ods_3866fb74-e852-4701-b114-172553a0d876 .bylinecontainer > tfoot { border: none; }
+.ods_3866fb74-e852-4701-b114-172553a0d876 .bylinecontainer {
+    background-color: #fafbfe;
+    border: none;
+    border-spacing: 1px;
+    color: #000000;
+    font-family: MYingHei_18030_C-Medium, Helvetica, Helv, sans-serif;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+    width: 100%;
+}
+.ods_3866fb74-e852-4701-b114-172553a0d876 .caption {
+    background-color: #fafbfe;
+    border-spacing: 0;
+    color: #112277;
+    font-family: MYingHei_18030_C-Medium, Helvetica, Helv, sans-serif;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: bold;
+}
+.ods_3866fb74-e852-4701-b114-172553a0d876 .cell, .ods_3866fb74-e852-4701-b114-172553a0d876 .container {
+    background-color: #fafbfe;
+    color: #000000;
+    font-family: MYingHei_18030_C-Medium, Helvetica, Helv, sans-serif;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+}
+.ods_3866fb74-e852-4701-b114-172553a0d876 .contentfolder, .ods_3866fb74-e852-4701-b114-172553a0d876 .contentitem {
+    color: #000000;
+    font-family: MYingHei_18030_C-Medium, Helvetica, Helv, sans-serif;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+    list-style-type: none;
+    margin-left: 6pt;
+}
+.ods_3866fb74-e852-4701-b114-172553a0d876 .contentproclabel, .ods_3866fb74-e852-4701-b114-172553a0d876 .contentprocname {
+    background-color: #fafbfe;
+    color: #112277;
+    font-family: MYingHei_18030_C-Medium, Helvetica, Helv, sans-serif;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: bold;
+}
+.ods_3866fb74-e852-4701-b114-172553a0d876 .contents {
+    background-color: #fafbfe;
+    color: #000000;
+    font-family: MYingHei_18030_C-Medium, Helvetica, Helv, sans-serif;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+    list-style-type: decimal;
+    margin-left: 8px;
+    margin-right: 8px;
+}
+.ods_3866fb74-e852-4701-b114-172553a0d876 .contentsdate {
+    background-color: #fafbfe;
+    color: #000000;
+    font-family: MYingHei_18030_C-Medium, Helvetica, Helv, sans-serif;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+    width: 100%;
+}
+.ods_3866fb74-e852-4701-b114-172553a0d876 .contenttitle {
+    background-color: #fafbfe;
+    color: #112277;
+    font-family: MYingHei_18030_C-Medium, Helvetica, Helv, sans-serif;
+    font-size: x-small;
+    font-style: italic;
+    font-weight: bold;
+}
+.ods_3866fb74-e852-4701-b114-172553a0d876 .continued {
+    background-color: #fafbfe;
+    border-spacing: 0;
+    color: #112277;
+    font-family: MYingHei_18030_C-Medium, Helvetica, Helv, sans-serif;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: bold;
+    width: 100%;
+}
+.ods_3866fb74-e852-4701-b114-172553a0d876 .data, .ods_3866fb74-e852-4701-b114-172553a0d876 .dataemphasis {
+    background-color: #ffffff;
+    border-color: #c1c1c1;
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    font-family: MYingHei_18030_C-Medium, Helvetica, Helv, sans-serif;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+}
+.ods_3866fb74-e852-4701-b114-172553a0d876 .dataemphasisfixed {
+    background-color: #ffffff;
+    border-color: #c1c1c1;
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    font-family: CSongGB18030C-LightHWL, Courier, monospace, sans-serif;
+    font-size: x-small;
+    font-style: italic;
+    font-weight: normal;
+}
+.ods_3866fb74-e852-4701-b114-172553a0d876 .dataempty {
+    background-color: #ffffff;
+    border-color: #c1c1c1;
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    font-family: MYingHei_18030_C-Medium, Helvetica, Helv, sans-serif;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+}
+.ods_3866fb74-e852-4701-b114-172553a0d876 .datafixed {
+    background-color: #ffffff;
+    border-color: #c1c1c1;
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    font-family: CSongGB18030C-LightHWL, Courier, sans-serif;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+}
+.ods_3866fb74-e852-4701-b114-172553a0d876 .datastrong {
+    background-color: #ffffff;
+    border-color: #c1c1c1;
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    color: #000000;
+    font-family: MYingHei_18030_C-Medium, Helvetica, Helv, sans-serif;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: bold;
+}
+.ods_3866fb74-e852-4701-b114-172553a0d876 .datastrongfixed {
+    background-color: #ffffff;
+    border-color: #c1c1c1;
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    color: #000000;
+    font-family: CSongGB18030C-LightHWL, Courier, monospace, sans-serif;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: bold;
+}
+.ods_3866fb74-e852-4701-b114-172553a0d876 .date {
+    background-color: #fafbfe;
+    color: #000000;
+    font-family: MYingHei_18030_C-Medium, Helvetica, Helv, sans-serif;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+    width: 100%;
+}
+.ods_3866fb74-e852-4701-b114-172553a0d876 .document {
+    background-color: #fafbfe;
+    color: #000000;
+    font-family: MYingHei_18030_C-Medium, Helvetica, Helv, sans-serif;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+}
+.ods_3866fb74-e852-4701-b114-172553a0d876 .errorbanner {
+    background-color: #fafbfe;
+    color: #112277;
+    font-family: MYingHei_18030_C-Medium, Helvetica, Helv, sans-serif;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: bold;
+}
+.ods_3866fb74-e852-4701-b114-172553a0d876 .errorcontent {
+    background-color: #fafbfe;
+    color: #112277;
+    font-family: MYingHei_18030_C-Medium, Helvetica, Helv, sans-serif;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+}
+.ods_3866fb74-e852-4701-b114-172553a0d876 .errorcontentfixed {
+    background-color: #fafbfe;
+    color: #112277;
+    font-family: CSongGB18030C-LightHWL, Courier, sans-serif;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+}
+.ods_3866fb74-e852-4701-b114-172553a0d876 .extendedpage {
+    background-color: #fafbfe;
+    border-style: solid;
+    border-width: 1pt;
+    color: #112277;
+    font-family: MYingHei_18030_C-Medium, Helvetica, Helv, sans-serif;
+    font-size: x-small;
+    font-style: italic;
+    font-weight: normal;
+    text-align: center;
+}
+.ods_3866fb74-e852-4701-b114-172553a0d876 .fatalbanner {
+    background-color: #fafbfe;
+    color: #112277;
+    font-family: MYingHei_18030_C-Medium, Helvetica, Helv, sans-serif;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: bold;
+}
+.ods_3866fb74-e852-4701-b114-172553a0d876 .fatalcontent {
+    background-color: #fafbfe;
+    color: #112277;
+    font-family: MYingHei_18030_C-Medium, Helvetica, Helv, sans-serif;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+}
+.ods_3866fb74-e852-4701-b114-172553a0d876 .fatalcontentfixed {
+    background-color: #fafbfe;
+    color: #112277;
+    font-family: CSongGB18030C-LightHWL, Courier, sans-serif;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+}
+.ods_3866fb74-e852-4701-b114-172553a0d876 .folderaction {
+    color: #000000;
+    font-family: MYingHei_18030_C-Medium, Helvetica, Helv, sans-serif;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+    list-style-type: none;
+    margin-left: 6pt;
+}
+.ods_3866fb74-e852-4701-b114-172553a0d876 .footer {
+    background-color: #edf2f9;
+    border-color: #b0b7bb;
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    color: #112277;
+    font-family: MYingHei_18030_C-Medium, Helvetica, Helv, sans-serif;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: bold;
+}
+.ods_3866fb74-e852-4701-b114-172553a0d876 .footeremphasis {
+    background-color: #edf2f9;
+    border-color: #b0b7bb;
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    color: #112277;
+    font-family: MYingHei_18030_C-Medium, Helvetica, Helv, sans-serif;
+    font-size: x-small;
+    font-style: italic;
+    font-weight: normal;
+}
+.ods_3866fb74-e852-4701-b114-172553a0d876 .footeremphasisfixed {
+    background-color: #edf2f9;
+    border-color: #b0b7bb;
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    color: #112277;
+    font-family: CSongGB18030C-LightHWL, Courier, monospace, sans-serif;
+    font-size: x-small;
+    font-style: italic;
+    font-weight: normal;
+}
+.ods_3866fb74-e852-4701-b114-172553a0d876 .footerempty {
+    background-color: #edf2f9;
+    border-color: #b0b7bb;
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    color: #112277;
+    font-family: MYingHei_18030_C-Medium, Helvetica, Helv, sans-serif;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: bold;
+}
+.ods_3866fb74-e852-4701-b114-172553a0d876 .footerfixed {
+    background-color: #edf2f9;
+    border-color: #b0b7bb;
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    color: #112277;
+    font-family: CSongGB18030C-LightHWL, Courier, sans-serif;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+}
+.ods_3866fb74-e852-4701-b114-172553a0d876 .footerstrong {
+    background-color: #edf2f9;
+    border-color: #b0b7bb;
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    color: #112277;
+    font-family: MYingHei_18030_C-Medium, Helvetica, Helv, sans-serif;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: bold;
+}
+.ods_3866fb74-e852-4701-b114-172553a0d876 .footerstrongfixed {
+    background-color: #edf2f9;
+    border-color: #b0b7bb;
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    color: #112277;
+    font-family: CSongGB18030C-LightHWL, Courier, monospace, sans-serif;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: bold;
+}
+.ods_3866fb74-e852-4701-b114-172553a0d876 .frame {
+    background-color: #fafbfe;
+    color: #000000;
+    font-family: MYingHei_18030_C-Medium, Helvetica, Helv, sans-serif;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+}
+.ods_3866fb74-e852-4701-b114-172553a0d876 .graph > colgroup {
+    border-left: 1px solid #c1c1c1;
+    border-right: 1px solid #c1c1c1;
+}
+.ods_3866fb74-e852-4701-b114-172553a0d876 .graph > tbody, .ods_3866fb74-e852-4701-b114-172553a0d876 .graph > thead, .ods_3866fb74-e852-4701-b114-172553a0d876 .graph > tfoot {
+    border-top: 1px solid #c1c1c1;
+    border-bottom: 1px solid #c1c1c1;
+}
+.ods_3866fb74-e852-4701-b114-172553a0d876 .graph { border: hidden; }
+.ods_3866fb74-e852-4701-b114-172553a0d876 .graph {
+    background-color: #fafbfe;
+    border: 1px solid #c1c1c1;
+    border-collapse: separate;
+    border-spacing: 1px;
+    color: #000000;
+    font-family: MYingHei_18030_C-Medium, Helvetica, Helv, sans-serif;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+    }
+.ods_3866fb74-e852-4701-b114-172553a0d876 .header {
+    background-color: #edf2f9;
+    border-color: #b0b7bb;
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    color: #112277;
+    font-family: MYingHei_18030_C-Medium, Helvetica, Helv, sans-serif;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: bold;
+}
+.ods_3866fb74-e852-4701-b114-172553a0d876 .headeremphasis {
+    background-color: #d8dbd3;
+    border-color: #b0b7bb;
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    color: #000000;
+    font-family: MYingHei_18030_C-Medium, Helvetica, Helv, sans-serif;
+    font-size: x-small;
+    font-style: italic;
+    font-weight: normal;
+}
+.ods_3866fb74-e852-4701-b114-172553a0d876 .headeremphasisfixed {
+    background-color: #d8dbd3;
+    border-color: #b0b7bb;
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    color: #000000;
+    font-family: CSongGB18030C-LightHWL, Courier, monospace, sans-serif;
+    font-size: x-small;
+    font-style: italic;
+    font-weight: normal;
+}
+.ods_3866fb74-e852-4701-b114-172553a0d876 .headerempty {
+    background-color: #edf2f9;
+    border-color: #b0b7bb;
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    color: #112277;
+    font-family: MYingHei_18030_C-Medium, Helvetica, Helv, sans-serif;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: bold;
+}
+.ods_3866fb74-e852-4701-b114-172553a0d876 .headerfixed {
+    background-color: #edf2f9;
+    border-color: #b0b7bb;
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    color: #112277;
+    font-family: CSongGB18030C-LightHWL, Courier, sans-serif;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+}
+.ods_3866fb74-e852-4701-b114-172553a0d876 .headersandfooters {
+    background-color: #edf2f9;
+    color: #000000;
+    font-family: MYingHei_18030_C-Medium, Helvetica, Helv, sans-serif;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: bold;
+}
+.ods_3866fb74-e852-4701-b114-172553a0d876 .headerstrong {
+    background-color: #d8dbd3;
+    border-color: #b0b7bb;
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    color: #000000;
+    font-family: MYingHei_18030_C-Medium, Helvetica, Helv, sans-serif;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: bold;
+}
+.ods_3866fb74-e852-4701-b114-172553a0d876 .headerstrongfixed {
+    background-color: #d8dbd3;
+    border-color: #b0b7bb;
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    color: #000000;
+    font-family: CSongGB18030C-LightHWL, Courier, monospace, sans-serif;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: bold;
+}
+.ods_3866fb74-e852-4701-b114-172553a0d876 .heading1, .ods_3866fb74-e852-4701-b114-172553a0d876 .heading2, .ods_3866fb74-e852-4701-b114-172553a0d876 .heading3, .ods_3866fb74-e852-4701-b114-172553a0d876 .heading4, .ods_3866fb74-e852-4701-b114-172553a0d876 .heading5, .ods_3866fb74-e852-4701-b114-172553a0d876 .heading6 { font-family: MYingHei_18030_C-Medium, Helvetica, sans-serif }
+.ods_3866fb74-e852-4701-b114-172553a0d876 .index {
+    background-color: #fafbfe;
+    color: #000000;
+    font-family: MYingHei_18030_C-Medium, Helvetica, Helv, sans-serif;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+}
+.ods_3866fb74-e852-4701-b114-172553a0d876 .indexaction, .ods_3866fb74-e852-4701-b114-172553a0d876 .indexitem {
+    color: #000000;
+    font-family: MYingHei_18030_C-Medium, Helvetica, Helv, sans-serif;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+    list-style-type: none;
+    margin-left: 6pt;
+}
+.ods_3866fb74-e852-4701-b114-172553a0d876 .indexprocname {
+    background-color: #fafbfe;
+    color: #112277;
+    font-family: MYingHei_18030_C-Medium, Helvetica, Helv, sans-serif;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: bold;
+}
+.ods_3866fb74-e852-4701-b114-172553a0d876 .indextitle {
+    background-color: #fafbfe;
+    color: #112277;
+    font-family: MYingHei_18030_C-Medium, Helvetica, Helv, sans-serif;
+    font-size: x-small;
+    font-style: italic;
+    font-weight: bold;
+}
+.ods_3866fb74-e852-4701-b114-172553a0d876 .layoutcontainer, .ods_3866fb74-e852-4701-b114-172553a0d876 .layoutregion {
+    border-width: 0;
+    border-spacing: 30px;
+}
+.ods_3866fb74-e852-4701-b114-172553a0d876 .linecontent {
+    background-color: #fafbfe;
+    border-color: #c1c1c1;
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    color: #112277;
+    font-family: MYingHei_18030_C-Medium, Helvetica, Helv, sans-serif;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+}
+.ods_3866fb74-e852-4701-b114-172553a0d876 a:link { color: #0000ff }
+.ods_3866fb74-e852-4701-b114-172553a0d876 .list {
+    background-color: #fafbfe;
+    color: #000000;
+    font-family: MYingHei_18030_C-Medium, Helvetica, Helv, sans-serif;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+    list-style-type: disc;
+}
+.ods_3866fb74-e852-4701-b114-172553a0d876 .list10 {
+    background-color: #fafbfe;
+    color: #000000;
+    font-family: MYingHei_18030_C-Medium, Helvetica, Helv, sans-serif;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+    list-style-type: square;
+}
+.ods_3866fb74-e852-4701-b114-172553a0d876 .list2 {
+    background-color: #fafbfe;
+    color: #000000;
+    font-family: MYingHei_18030_C-Medium, Helvetica, Helv, sans-serif;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+    list-style-type: circle;
+}
+.ods_3866fb74-e852-4701-b114-172553a0d876 .list3, .ods_3866fb74-e852-4701-b114-172553a0d876 .list4, .ods_3866fb74-e852-4701-b114-172553a0d876 .list5, .ods_3866fb74-e852-4701-b114-172553a0d876 .list6, .ods_3866fb74-e852-4701-b114-172553a0d876 .list7, .ods_3866fb74-e852-4701-b114-172553a0d876 .list8, .ods_3866fb74-e852-4701-b114-172553a0d876 .list9 {
+    background-color: #fafbfe;
+    color: #000000;
+    font-family: MYingHei_18030_C-Medium, Helvetica, Helv, sans-serif;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+    list-style-type: square;
+}
+.ods_3866fb74-e852-4701-b114-172553a0d876 .listitem {
+    background-color: #fafbfe;
+    color: #000000;
+    font-family: MYingHei_18030_C-Medium, Helvetica, Helv, sans-serif;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+    list-style-type: disc;
+}
+.ods_3866fb74-e852-4701-b114-172553a0d876 .listitem10 {
+    background-color: #fafbfe;
+    color: #000000;
+    font-family: MYingHei_18030_C-Medium, Helvetica, Helv, sans-serif;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+    list-style-type: square;
+}
+.ods_3866fb74-e852-4701-b114-172553a0d876 .listitem2 {
+    background-color: #fafbfe;
+    color: #000000;
+    font-family: MYingHei_18030_C-Medium, Helvetica, Helv, sans-serif;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+    list-style-type: circle;
+}
+.ods_3866fb74-e852-4701-b114-172553a0d876 .listitem3, .ods_3866fb74-e852-4701-b114-172553a0d876 .listitem4, .ods_3866fb74-e852-4701-b114-172553a0d876 .listitem5, .ods_3866fb74-e852-4701-b114-172553a0d876 .listitem6, .ods_3866fb74-e852-4701-b114-172553a0d876 .listitem7, .ods_3866fb74-e852-4701-b114-172553a0d876 .listitem8, .ods_3866fb74-e852-4701-b114-172553a0d876 .listitem9 {
+    background-color: #fafbfe;
+    color: #000000;
+    font-family: MYingHei_18030_C-Medium, Helvetica, Helv, sans-serif;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+    list-style-type: square;
+}
+.ods_3866fb74-e852-4701-b114-172553a0d876 .note {
+    background-color: #fafbfe;
+    color: #112277;
+    font-family: MYingHei_18030_C-Medium, Helvetica, Helv, sans-serif;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+}
+.ods_3866fb74-e852-4701-b114-172553a0d876 .notebanner {
+    background-color: #fafbfe;
+    color: #112277;
+    font-family: MYingHei_18030_C-Medium, Helvetica, Helv, sans-serif;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: bold;
+}
+.ods_3866fb74-e852-4701-b114-172553a0d876 .notecontent {
+    background-color: #fafbfe;
+    color: #112277;
+    font-family: MYingHei_18030_C-Medium, Helvetica, Helv, sans-serif;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+}
+.ods_3866fb74-e852-4701-b114-172553a0d876 .notecontentfixed {
+    background-color: #fafbfe;
+    color: #112277;
+    font-family: CSongGB18030C-LightHWL, Courier, sans-serif;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+}
+.ods_3866fb74-e852-4701-b114-172553a0d876 .output > colgroup {
+    border-left: 1px solid #c1c1c1;
+    border-right: 1px solid #c1c1c1;
+}
+.ods_3866fb74-e852-4701-b114-172553a0d876 .output > tbody, .ods_3866fb74-e852-4701-b114-172553a0d876 .output > thead, .ods_3866fb74-e852-4701-b114-172553a0d876 .output > tfoot {
+    border-top: 1px solid #c1c1c1;
+    border-bottom: 1px solid #c1c1c1;
+}
+.ods_3866fb74-e852-4701-b114-172553a0d876 .output { border: hidden; }
+.ods_3866fb74-e852-4701-b114-172553a0d876 .output {
+    background-color: #fafbfe;
+    border: 1px solid #c1c1c1;
+    border-collapse: separate;
+    border-spacing: 1px;
+    color: #000000;
+    font-family: MYingHei_18030_C-Medium, Helvetica, Helv, sans-serif;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+    }
+.ods_3866fb74-e852-4701-b114-172553a0d876 .pageno {
+    background-color: #fafbfe;
+    border-spacing: 0;
+    color: #112277;
+    font-family: MYingHei_18030_C-Medium, Helvetica, Helv, sans-serif;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: bold;
+    text-align: right;
+    vertical-align: top;
+}
+.ods_3866fb74-e852-4701-b114-172553a0d876 .pages {
+    background-color: #fafbfe;
+    color: #000000;
+    font-family: MYingHei_18030_C-Medium, Helvetica, Helv, sans-serif;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+    list-style-type: decimal;
+    margin-left: 8px;
+    margin-right: 8px;
+}
+.ods_3866fb74-e852-4701-b114-172553a0d876 .pagesdate {
+    background-color: #fafbfe;
+    color: #000000;
+    font-family: MYingHei_18030_C-Medium, Helvetica, Helv, sans-serif;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+    width: 100%;
+}
+.ods_3866fb74-e852-4701-b114-172553a0d876 .pagesitem {
+    color: #000000;
+    font-family: MYingHei_18030_C-Medium, Helvetica, Helv, sans-serif;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+    list-style-type: none;
+    margin-left: 6pt;
+}
+.ods_3866fb74-e852-4701-b114-172553a0d876 .pagesproclabel, .ods_3866fb74-e852-4701-b114-172553a0d876 .pagesprocname {
+    background-color: #fafbfe;
+    color: #112277;
+    font-family: MYingHei_18030_C-Medium, Helvetica, Helv, sans-serif;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: bold;
+}
+.ods_3866fb74-e852-4701-b114-172553a0d876 .pagestitle {
+    background-color: #fafbfe;
+    color: #112277;
+    font-family: MYingHei_18030_C-Medium, Helvetica, Helv, sans-serif;
+    font-size: x-small;
+    font-style: italic;
+    font-weight: bold;
+}
+.ods_3866fb74-e852-4701-b114-172553a0d876 .paragraph {
+    background-color: #fafbfe;
+    color: #000000;
+    font-family: MYingHei_18030_C-Medium, Helvetica, Helv, sans-serif;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+}
+.ods_3866fb74-e852-4701-b114-172553a0d876 .parskip > col, .ods_3866fb74-e852-4701-b114-172553a0d876 .parskip > colgroup > col, .ods_3866fb74-e852-4701-b114-172553a0d876 .parskip > colgroup, .ods_3866fb74-e852-4701-b114-172553a0d876 .parskip > tr, .ods_3866fb74-e852-4701-b114-172553a0d876 .parskip > * > tr, .ods_3866fb74-e852-4701-b114-172553a0d876 .parskip > thead, .ods_3866fb74-e852-4701-b114-172553a0d876 .parskip > tbody, .ods_3866fb74-e852-4701-b114-172553a0d876 .parskip > tfoot { border: none; }
+.ods_3866fb74-e852-4701-b114-172553a0d876 .parskip {
+    border: none;
+    border-spacing: 0;
+    font-family: MYingHei_18030_C-Medium, Helvetica, Helv, sans-serif;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: bold;
+    }
+.ods_3866fb74-e852-4701-b114-172553a0d876 .prepage {
+    background-color: #fafbfe;
+    color: #112277;
+    font-family: MYingHei_18030_C-Medium, Helvetica, Helv, sans-serif;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+    text-align: left;
+}
+.ods_3866fb74-e852-4701-b114-172553a0d876 .proctitle {
+    background-color: #fafbfe;
+    color: #112277;
+    font-family: MYingHei_18030_C-Medium, Helvetica, Helv, sans-serif;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: bold;
+}
+.ods_3866fb74-e852-4701-b114-172553a0d876 .proctitlefixed {
+    background-color: #fafbfe;
+    color: #112277;
+    font-family: CSongGB18030C-LightHWL, Courier, monospace, sans-serif;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: bold;
+}
+.ods_3866fb74-e852-4701-b114-172553a0d876 .rowfooter {
+    background-color: #edf2f9;
+    border-color: #b0b7bb;
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    color: #112277;
+    font-family: MYingHei_18030_C-Medium, Helvetica, Helv, sans-serif;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: bold;
+}
+.ods_3866fb74-e852-4701-b114-172553a0d876 .rowfooteremphasis {
+    background-color: #edf2f9;
+    border-color: #b0b7bb;
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    color: #112277;
+    font-family: MYingHei_18030_C-Medium, Helvetica, Helv, sans-serif;
+    font-size: x-small;
+    font-style: italic;
+    font-weight: normal;
+}
+.ods_3866fb74-e852-4701-b114-172553a0d876 .rowfooteremphasisfixed {
+    background-color: #edf2f9;
+    border-color: #b0b7bb;
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    color: #112277;
+    font-family: CSongGB18030C-LightHWL, Courier, monospace, sans-serif;
+    font-size: x-small;
+    font-style: italic;
+    font-weight: normal;
+}
+.ods_3866fb74-e852-4701-b114-172553a0d876 .rowfooterempty {
+    background-color: #edf2f9;
+    border-color: #b0b7bb;
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    color: #112277;
+    font-family: MYingHei_18030_C-Medium, Helvetica, Helv, sans-serif;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: bold;
+}
+.ods_3866fb74-e852-4701-b114-172553a0d876 .rowfooterfixed {
+    background-color: #edf2f9;
+    border-color: #b0b7bb;
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    color: #112277;
+    font-family: CSongGB18030C-LightHWL, Courier, sans-serif;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+}
+.ods_3866fb74-e852-4701-b114-172553a0d876 .rowfooterstrong {
+    background-color: #edf2f9;
+    border-color: #b0b7bb;
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    color: #112277;
+    font-family: MYingHei_18030_C-Medium, Helvetica, Helv, sans-serif;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: bold;
+}
+.ods_3866fb74-e852-4701-b114-172553a0d876 .rowfooterstrongfixed {
+    background-color: #edf2f9;
+    border-color: #b0b7bb;
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    color: #112277;
+    font-family: CSongGB18030C-LightHWL, Courier, monospace, sans-serif;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: bold;
+}
+.ods_3866fb74-e852-4701-b114-172553a0d876 .rowheader {
+    background-color: #edf2f9;
+    border-color: #b0b7bb;
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    color: #112277;
+    font-family: MYingHei_18030_C-Medium, Helvetica, Helv, sans-serif;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: bold;
+}
+.ods_3866fb74-e852-4701-b114-172553a0d876 .rowheaderemphasis {
+    background-color: #edf2f9;
+    border-color: #b0b7bb;
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    color: #112277;
+    font-family: MYingHei_18030_C-Medium, Helvetica, Helv, sans-serif;
+    font-size: x-small;
+    font-style: italic;
+    font-weight: normal;
+}
+.ods_3866fb74-e852-4701-b114-172553a0d876 .rowheaderemphasisfixed {
+    background-color: #edf2f9;
+    border-color: #b0b7bb;
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    color: #112277;
+    font-family: CSongGB18030C-LightHWL, Courier, monospace, sans-serif;
+    font-size: x-small;
+    font-style: italic;
+    font-weight: normal;
+}
+.ods_3866fb74-e852-4701-b114-172553a0d876 .rowheaderempty {
+    background-color: #edf2f9;
+    border-color: #b0b7bb;
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    color: #112277;
+    font-family: MYingHei_18030_C-Medium, Helvetica, Helv, sans-serif;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: bold;
+}
+.ods_3866fb74-e852-4701-b114-172553a0d876 .rowheaderfixed {
+    background-color: #edf2f9;
+    border-color: #b0b7bb;
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    color: #112277;
+    font-family: CSongGB18030C-LightHWL, Courier, sans-serif;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+}
+.ods_3866fb74-e852-4701-b114-172553a0d876 .rowheaderstrong {
+    background-color: #edf2f9;
+    border-color: #b0b7bb;
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    color: #112277;
+    font-family: MYingHei_18030_C-Medium, Helvetica, Helv, sans-serif;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: bold;
+}
+.ods_3866fb74-e852-4701-b114-172553a0d876 .rowheaderstrongfixed {
+    background-color: #edf2f9;
+    border-color: #b0b7bb;
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    color: #112277;
+    font-family: CSongGB18030C-LightHWL, Courier, monospace, sans-serif;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: bold;
+}
+.ods_3866fb74-e852-4701-b114-172553a0d876 .systemfooter, .ods_3866fb74-e852-4701-b114-172553a0d876 .systemfooter10, .ods_3866fb74-e852-4701-b114-172553a0d876 .systemfooter2, .ods_3866fb74-e852-4701-b114-172553a0d876 .systemfooter3, .ods_3866fb74-e852-4701-b114-172553a0d876 .systemfooter4, .ods_3866fb74-e852-4701-b114-172553a0d876 .systemfooter5, .ods_3866fb74-e852-4701-b114-172553a0d876 .systemfooter6, .ods_3866fb74-e852-4701-b114-172553a0d876 .systemfooter7, .ods_3866fb74-e852-4701-b114-172553a0d876 .systemfooter8, .ods_3866fb74-e852-4701-b114-172553a0d876 .systemfooter9 {
+    background-color: #fafbfe;
+    color: #112277;
+    font-family: MYingHei_18030_C-Medium, Helvetica, Helv, sans-serif;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+}
+.ods_3866fb74-e852-4701-b114-172553a0d876 .systemtitle, .ods_3866fb74-e852-4701-b114-172553a0d876 .systemtitle10, .ods_3866fb74-e852-4701-b114-172553a0d876 .systemtitle2, .ods_3866fb74-e852-4701-b114-172553a0d876 .systemtitle3, .ods_3866fb74-e852-4701-b114-172553a0d876 .systemtitle4, .ods_3866fb74-e852-4701-b114-172553a0d876 .systemtitle5, .ods_3866fb74-e852-4701-b114-172553a0d876 .systemtitle6, .ods_3866fb74-e852-4701-b114-172553a0d876 .systemtitle7, .ods_3866fb74-e852-4701-b114-172553a0d876 .systemtitle8, .ods_3866fb74-e852-4701-b114-172553a0d876 .systemtitle9 {
+    background-color: #fafbfe;
+    color: #112277;
+    font-family: MYingHei_18030_C-Medium, Helvetica, Helv, sans-serif;
+    font-size: small;
+    font-style: normal;
+    font-weight: bold;
+}
+.ods_3866fb74-e852-4701-b114-172553a0d876 .systitleandfootercontainer > col, .ods_3866fb74-e852-4701-b114-172553a0d876 .systitleandfootercontainer > colgroup > col, .ods_3866fb74-e852-4701-b114-172553a0d876 .systitleandfootercontainer > colgroup, .ods_3866fb74-e852-4701-b114-172553a0d876 .systitleandfootercontainer > tr, .ods_3866fb74-e852-4701-b114-172553a0d876 .systitleandfootercontainer > * > tr, .ods_3866fb74-e852-4701-b114-172553a0d876 .systitleandfootercontainer > thead, .ods_3866fb74-e852-4701-b114-172553a0d876 .systitleandfootercontainer > tbody, .ods_3866fb74-e852-4701-b114-172553a0d876 .systitleandfootercontainer > tfoot { border: none; }
+.ods_3866fb74-e852-4701-b114-172553a0d876 .systitleandfootercontainer {
+    background-color: #fafbfe;
+    border: none;
+    border-spacing: 1px;
+    color: #000000;
+    font-family: MYingHei_18030_C-Medium, Helvetica, Helv, sans-serif;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+    width: 100%;
+}
+.ods_3866fb74-e852-4701-b114-172553a0d876 .table > col, .ods_3866fb74-e852-4701-b114-172553a0d876 .table > colgroup > col {
+    border-left: 1px solid #c1c1c1;
+    border-right: 0 solid #c1c1c1;
+}
+.ods_3866fb74-e852-4701-b114-172553a0d876 .table > tr, .ods_3866fb74-e852-4701-b114-172553a0d876 .table > * > tr {
+    border-top: 1px solid #c1c1c1;
+    border-bottom: 0 solid #c1c1c1;
+}
+.ods_3866fb74-e852-4701-b114-172553a0d876 .table { border: hidden; }
+.ods_3866fb74-e852-4701-b114-172553a0d876 .table {
+    border-color: #c1c1c1;
+    border-style: solid;
+    border-width: 1px 0 0 1px;
+    border-collapse: collapse;
+    border-spacing: 0;
+    }
+.ods_3866fb74-e852-4701-b114-172553a0d876 .titleandnotecontainer > col, .ods_3866fb74-e852-4701-b114-172553a0d876 .titleandnotecontainer > colgroup > col, .ods_3866fb74-e852-4701-b114-172553a0d876 .titleandnotecontainer > colgroup, .ods_3866fb74-e852-4701-b114-172553a0d876 .titleandnotecontainer > tr, .ods_3866fb74-e852-4701-b114-172553a0d876 .titleandnotecontainer > * > tr, .ods_3866fb74-e852-4701-b114-172553a0d876 .titleandnotecontainer > thead, .ods_3866fb74-e852-4701-b114-172553a0d876 .titleandnotecontainer > tbody, .ods_3866fb74-e852-4701-b114-172553a0d876 .titleandnotecontainer > tfoot { border: none; }
+.ods_3866fb74-e852-4701-b114-172553a0d876 .titleandnotecontainer {
+    background-color: #fafbfe;
+    border: none;
+    border-spacing: 1px;
+    color: #000000;
+    font-family: MYingHei_18030_C-Medium, Helvetica, Helv, sans-serif;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+    width: 100%;
+}
+.ods_3866fb74-e852-4701-b114-172553a0d876 .titlesandfooters {
+    background-color: #fafbfe;
+    color: #112277;
+    font-family: MYingHei_18030_C-Medium, Helvetica, Helv, sans-serif;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: bold;
+}
+.ods_3866fb74-e852-4701-b114-172553a0d876 .usertext {
+    background-color: #fafbfe;
+    color: #112277;
+    font-family: MYingHei_18030_C-Medium, Helvetica, Helv, sans-serif;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+}
+.ods_3866fb74-e852-4701-b114-172553a0d876 a:visited { color: #800080 }
+.ods_3866fb74-e852-4701-b114-172553a0d876 .warnbanner {
+    background-color: #fafbfe;
+    color: #112277;
+    font-family: MYingHei_18030_C-Medium, Helvetica, Helv, sans-serif;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: bold;
+}
+.ods_3866fb74-e852-4701-b114-172553a0d876 .warncontent {
+    background-color: #fafbfe;
+    color: #112277;
+    font-family: MYingHei_18030_C-Medium, Helvetica, Helv, sans-serif;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+}
+.ods_3866fb74-e852-4701-b114-172553a0d876 .warncontentfixed {
+    background-color: #fafbfe;
+    color: #112277;
+    font-family: CSongGB18030C-LightHWL, Courier, sans-serif;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+}
+/*]]>*/
+</style>
+</head>
+<body class="body">
+<div id="div_3866fb74-e852-4701-b114-172553a0d876" class="c body">
+<h1 class="body toc">结果: diabetes.sas</h1>
+<section data-name="Freq" data-sec-type="proc">
+<div id="IDX" class="systitleandfootercontainer" style="border-spacing: 1px">
+<p><span class="c systemtitle">BMI Categories vs. Diabetes Outcome</span> </p>
+</div>
+<div class="proc_title_group">
+<p class="c proctitle">FREQ 过程</p>
+</div>
+<h1 class="contentprocname toc">Freq 过程</h1>
+<section>
+<h1 class="contentfolder toc">表“Outcome_char-BMI”</h1>
+<article aria-label="交叉表频数表">
+<h1 class="contentitem toc">交叉表频数表</h1>
+<table role="presentation">
+<tr>
+<td class="c t"><table class="table" style="border-spacing: 0">
+<colgroup><col/></colgroup>
+<tbody>
+<tr>
+<th class="t header" scope="col">
+<div class="stacked-cell">
+<div class="t">频数</div>
+</div>
+</th>
+</tr>
+</tbody>
+</table>
+</td>
+<td><table class="table" style="border-spacing: 0" aria-label="交叉表频数表">
+<caption aria-label="交叉表频数表"></caption>
+<colgroup><col/></colgroup><colgroup><col/><col/><col/></colgroup>
+<thead>
+<tr>
+<th class="c header" colspan="4" scope="colgroup">BMI-Outcome_char表</th>
+</tr>
+<tr>
+<th class="c b header" rowspan="2" scope="col">BMI</th>
+<th class="c b header" colspan="3" scope="colgroup">Outcome_char</th>
+</tr>
+<tr>
+<th class="r header" scope="col">Diabetes</th>
+<th class="r header" scope="col">No Diabetes</th>
+<th class="r header" scope="col">合计</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th class="t rowheader" scope="row">Underweight</th>
+<td class="r t data">
+<div class="stacked-cell">
+<div class="r t">2</div>
+</div>
+</td>
+<td class="r t data">
+<div class="stacked-cell">
+<div class="r t">13</div>
+</div>
+</td>
+<td class="r t data">
+<div class="stacked-cell">
+<div class="r t">15</div>
+</div>
+</td>
+</tr>
+<tr>
+<th class="t rowheader" scope="row">Healthy Weight</th>
+<td class="r t data">
+<div class="stacked-cell">
+<div class="r t">7</div>
+</div>
+</td>
+<td class="r t data">
+<div class="stacked-cell">
+<div class="r t">95</div>
+</div>
+</td>
+<td class="r t data">
+<div class="stacked-cell">
+<div class="r t">102</div>
+</div>
+</td>
+</tr>
+<tr>
+<th class="t rowheader" scope="row">Overweight</th>
+<td class="r t data">
+<div class="stacked-cell">
+<div class="r t">40</div>
+</div>
+</td>
+<td class="r t data">
+<div class="stacked-cell">
+<div class="r t">139</div>
+</div>
+</td>
+<td class="r t data">
+<div class="stacked-cell">
+<div class="r t">179</div>
+</div>
+</td>
+</tr>
+<tr>
+<th class="t rowheader" scope="row">Obesity</th>
+<td class="r t data">
+<div class="stacked-cell">
+<div class="r t">219</div>
+</div>
+</td>
+<td class="r t data">
+<div class="stacked-cell">
+<div class="r t">253</div>
+</div>
+</td>
+<td class="r t data">
+<div class="stacked-cell">
+<div class="r t">472</div>
+</div>
+</td>
+</tr>
+<tr>
+<th class="t rowheader" scope="row">合计</th>
+<td class="r t data">
+<div class="stacked-cell">
+<div class="r t">268</div>
+</div>
+</td>
+<td class="r t data">
+<div class="stacked-cell">
+<div class="r t">500</div>
+</div>
+</td>
+<td class="r t data">
+<div class="stacked-cell">
+<div class="r t">768</div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</table>
+</article>
+</section>
+</section>
+<section data-name="Freq" data-sec-type="proc">
+<hr class="pagebreak"/>
+<div id="IDX1" class="systitleandfootercontainer" style="border-spacing: 1px">
+<p><span class="c systemtitle">Mosaic Plot of Diabetes Outcome by BMI Categories</span> </p>
+</div>
+<div class="proc_title_group">
+<p class="c proctitle">FREQ 过程</p>
+</div>
+<h1 class="contentprocname toc">Freq 过程</h1>
+<section>
+<h1 class="contentfolder toc">表“BMI-Outcome_char”</h1>
+<article aria-label="交叉表频数表">
+<h1 class="contentitem toc">交叉表频数表</h1>
+<table role="presentation">
+<tr>
+<td class="c t"><table class="table" style="border-spacing: 0">
+<colgroup><col/></colgroup>
+<tbody>
+<tr>
+<th class="t header" scope="col">
+<div class="stacked-cell">
+<div class="t">频数</div>
+<div class="t">百分比</div>
+<div class="t">列百分比</div>
+</div>
+</th>
+</tr>
+</tbody>
+</table>
+</td>
+<td><table class="table" style="border-spacing: 0" aria-label="交叉表频数表">
+<caption aria-label="交叉表频数表"></caption>
+<colgroup><col/></colgroup><colgroup><col/><col/><col/><col/><col/></colgroup>
+<thead>
+<tr>
+<th class="c header" colspan="6" scope="colgroup">Outcome_char-BMI表</th>
+</tr>
+<tr>
+<th class="c b header" rowspan="2" scope="col">Outcome_char</th>
+<th class="c b header" colspan="5" scope="colgroup">BMI</th>
+</tr>
+<tr>
+<th class="r header" scope="col">Underweight</th>
+<th class="r header" scope="col">Healthy Weight</th>
+<th class="r header" scope="col">Overweight</th>
+<th class="r header" scope="col">Obesity</th>
+<th class="r header" scope="col">合计</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th class="t rowheader" scope="row">Diabetes</th>
+<td class="r t data">
+<div class="stacked-cell">
+<div class="r t">2</div>
+<div class="r t">0.26</div>
+<div class="r t">13.33</div>
+</div>
+</td>
+<td class="r t data">
+<div class="stacked-cell">
+<div class="r t">7</div>
+<div class="r t">0.91</div>
+<div class="r t">6.86</div>
+</div>
+</td>
+<td class="r t data">
+<div class="stacked-cell">
+<div class="r t">40</div>
+<div class="r t">5.21</div>
+<div class="r t">22.35</div>
+</div>
+</td>
+<td class="r t data">
+<div class="stacked-cell">
+<div class="r t">219</div>
+<div class="r t">28.52</div>
+<div class="r t">46.40</div>
+</div>
+</td>
+<td class="r t data">
+<div class="stacked-cell">
+<div class="r t">268</div>
+<div class="r t">34.90</div>
+<div class="r t">&#160;</div>
+</div>
+</td>
+</tr>
+<tr>
+<th class="t rowheader" scope="row">No Diabetes</th>
+<td class="r t data">
+<div class="stacked-cell">
+<div class="r t">13</div>
+<div class="r t">1.69</div>
+<div class="r t">86.67</div>
+</div>
+</td>
+<td class="r t data">
+<div class="stacked-cell">
+<div class="r t">95</div>
+<div class="r t">12.37</div>
+<div class="r t">93.14</div>
+</div>
+</td>
+<td class="r t data">
+<div class="stacked-cell">
+<div class="r t">139</div>
+<div class="r t">18.10</div>
+<div class="r t">77.65</div>
+</div>
+</td>
+<td class="r t data">
+<div class="stacked-cell">
+<div class="r t">253</div>
+<div class="r t">32.94</div>
+<div class="r t">53.60</div>
+</div>
+</td>
+<td class="r t data">
+<div class="stacked-cell">
+<div class="r t">500</div>
+<div class="r t">65.10</div>
+<div class="r t">&#160;</div>
+</div>
+</td>
+</tr>
+<tr>
+<th class="t rowheader" scope="row">合计</th>
+<td class="r t data">
+<div class="stacked-cell">
+<div class="r t">15</div>
+<div class="r t">1.95</div>
+</div>
+</td>
+<td class="r t data">
+<div class="stacked-cell">
+<div class="r t">102</div>
+<div class="r t">13.28</div>
+</div>
+</td>
+<td class="r t data">
+<div class="stacked-cell">
+<div class="r t">179</div>
+<div class="r t">23.31</div>
+</div>
+</td>
+<td class="r t data">
+<div class="stacked-cell">
+<div class="r t">472</div>
+<div class="r t">61.46</div>
+</div>
+</td>
+<td class="r t data">
+<div class="stacked-cell">
+<div class="r t">768</div>
+<div class="r t">100.00</div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</table>
+</article>
+<article id="IDX2" aria-label="马赛克图">
+<h1 class="contentitem toc">马赛克图</h1>
+<div class="c">
+<img style="height: 480px; width: 640px" alt="“BMI - Outcome_char”的马赛克图" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAoAAAAHgCAIAAAC6s0uzAAAACXBIWXMAAA7DAAAOwwHHb6hkAAAgAElEQVR4nO3dZ0AUV////bMUEUUEqQrBErGDoMQWG9iwSzQqdi97iRo1mhhN9IomotHLWBONYu9BibEXsARFEwVsKHZRUTAqKHXZ+T+YO3vzs7IqHMr79YiZMzP73XXxw8ycOUcTGRkpAABA7jIRQri7u8suAwCAQiQqKspIdg0AABRGBDAAABIQwAAASEAAAwAgAQEMAIAEBDAAABIQwAAASEAAAwAgAQEMAIAEBDCAd6UoynNr0tLSXr9LZmZm1t1fPMJrtgcKBgIYwLvq2rWrnZ1dbGysunjs2LFixYrNnDnzVds/e/bM1dU1ICBACHHp0qVq1aotWbLkNce/f/9+yZIlv/322/dbNiCXiewCgHdy6NChxMRE9WdjY2MHB4dq1apZWFhkbXVxcalVq1bWvS5evHjp0iVTU9O2bdtGRkZev369Vq1aLi4uL32Jp0+f7tmz58KFC+np6S4uLr6+vq/aMj9ydHS0t7ePiop66yMoihISEuLs7Ozs7KyuWbp0qU6n8/b2ftUus2fPvn79uqenpxCiYsWKJUqUmDRpUocOHfRHeM7mzZufPXtWuXLlty4SyIsiIyMVIN+qXr26EKJq1aq1a9d2d3e3sLCwsLD4+uuvs7Z++OGHz+3VpEkTIUTJkiUVRRkyZIgQIjAw8KXH37Jli42NTbFixdq0adO1a1cnJycTE5OJEydmZma+vrDu3bs3a9YsPT39Xd9hDhNCODg4vPXuzZo1Uz9kKyurmjVrtmzZMi4uztzcXAjRsGHDJv/auXOnfpfw8HBTU9O+ffvq15w/f97CwqJevXppaWnqmgMHDjj9y9bW1tjY2NzcvEyZMk4vaNmy5VsXD0gUGRlJACN/U//3P3XqlLr47NmzBg0aCCGCg4PVVmtrayFEeHi4fpc7d+4YGRlZW1u/MYD37NljZGRUtWrV2NhYdU1aWlrv3r2FEBMmTHh9YU5OTkKIlJSU9/Euc9A7BrCDg0Pjxo3j4+Pj4+MbNGjg5OTUo0cPIcTvv/9++/bt27dvr1ixQgixYsUKdfurV686OzvXqFHj2bNnWY+zdetWjUbTvXt3rVb73Ev07NlT/ReMiYkJDAy8f//+W1cL5B2RkZFcgkaBUqxYMS8vr7CwsLt376prnJ2dXVxc1q9fX6dOHXXNpk2bPvjgA2dn53Pnzr3+aJ9//rlOp5s/f76apkKIIkWKLFy48I8//pg7d+6wYcPKlSvXr1+/kiVL/vTTT+oGgwYNMjY2dnFxefTokbrYuXPnTp06hYaGLl++/Nq1azY2NrVr1+7du3eFChWEEEFBQevWrbt3716ZMmX69OnToUMHIYR6TG9v74ULFxoZGQ0ZMsTLy+vbb7+9evVq9erVv/nmmzJlygghtm3btm7durt37zo7Ow8bNuw1l3xVr6pBCBEWFhYQEPD06dPGjRuPHz++ePHiN27c2Lx586lTp+7du2dnZ+fn59e7d2+NRtOvX7/SpUvb29sHBQW1b99eCGFqampra6v+cOfOnfXr13ft2lVtEkKofwAZGRkJIc6ePduuXbsiRYrs3r27WLFiWWvr3LnzokWLhg8frijKypUrixYtqq6PiIjYsGFDr1696tSps3Llyv79+x89etTe3v717xTIF+iEhYLg5s2b0dHRZ8+e/fXXX5cvX16hQgV/f3+1KSUlpXv37ps2bdLpdOqaDRs2dO3aNTU19fXHjImJuXjxor29ffPmzbOut7S0bN++vVar/eOPP4QQq1at2rRpk751zZo1a9eudXV1NTU1FULUrFnT0dFx9uzZ3t7ed+/e/fzzzzt16hQZGRkZGSmEmDZtWufOndPS0oYMGZKSktKxY8dZs2apx1y6dOns2bP79Olz69at7t27e3t7lytXrnXr1r/88oufn5+67yeffGJhYfHFF188e/asWbNma9eufc3beVUNQojExMTRo0d36tTJ2dl56tSpgwYNEkJMnTr1+PHjPj4+EydOLFq0aN++fRcsWKDWtmzZsqlTp/r5+b0Y+dbW1uvWrfvf//4XGhqqrlE/9iJFikRGRtapUyctLW3BggWPHz8+94JGjRrNmjUrKCioY8eO6r7p6emenp46na5jx44HDhy4cOGCEOKvv/468K93uXUNyMclaORr6iVoc3Pz4sWLm5mZqd/qqVOn6ludnJyuX78uhNi/f7+iKFevXhVC/PXXX9WqVXv9Jeh9+/YJIerWrfvii6rdcceNG6e8cAnXzMysePHiSpZL0LGxsSYmJo6Ojs9djr59+7axsbGzs3NGRoaiKBkZGR988IGZmVl8fLwQwsLC4tGjR4qi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8WuOsG/fvgYNGmQN4LCwsN69e0+fPr1jx46XL1+eNWvWi3tlZGQUK1bM1NS0VatWq1ateumRX9pqY2Nz8uTJiIiIoKCgxo0bb9u2LesQYAAAvDsDekFPnDjxWBY7duxwdXXN5r5eXl79+/fXd4H28fHZsWNHbGysEGLDhg02Njavmlc4OTl5w4YN33333cyZM7OuP3jw4KeffiWtZjAAABsZSURBVOrv71+xYsU///xT7UslhLh169bFixeFELt27SpVqpSjo2Pz5s137959584ddQP1Lq+ZmVl6erqiKC9tTU5OfvLkiYeHx3//+99u3bpFRUVl/1MCACA7DJsNKavGjRsPHDjwwYMH9vb22dn+22+/DQ4OVn+uVavWpEmTateuXaZMmaSkpPXr1784r3DZsmU1Go1Op6tbt25wcHD9+vWztnbq1Kl169ZhYWGpqaldunS5fv26msGWlpYjRoxITEyMi4vbtGmTRqNxd3cPCAho2LBhuXLl4uPjnZ2dN2/ebGtrW7FixXr16v38888vtkZHR/ft29fW1lYIkZGRMW3atLf+lAAAeKm3DGBFUcLDw2/fvm1qavqqbaysrLJ2mzIzMzt//rx+cezYsaNGjXr48OGLg1laWVkpivLSY3p5ealDebi5uV2/fv3hw4eOjo5CiAkTJqit6ll1fHy8jY2NvldX//79+/XrFxcXV6pUKf38iSdPnkxISHB0dPT09HyutU6dOhcvXoyPjxdC2NnZGfrhAADwRgYE8JAhQ5YvX67+rCiKoihff/21tbX127+2icm7DCVtamqqpu+LXkxNjUZTunTp515dv/uLrS89CAAA74sBATx9+vQvvvhC/Vmj0Tg4OOh7NQMAAIMYEMDPnj0LDQ198OCBra1tixYtSF8AAN5atnpBK4oyfvz4ihUrfv/993v37p01a1alSpXGjx//qju1AADg9bJ1Bjxz5sytW7eGhoY2bNhQXXPq1Cl1PoaJEyfmZHkAABRMbz4D1ul0c+fOXbNmjT59hRAfffTRli1bZs+erX8AFwAAZN+bA/jevXtpaWlZ01dVs2bNokWLqo/9AAAAg7w5gNVhI196ppuWlvbc+MwAACA73hzAjo6Otra2u3fvfm79kSNHzMzMXjWEJAAAeI1s9YKePHnyf/7zny1btqjdnhVF2bFjh7+//9SpU3O2OgAACqhs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z+7du729vfWD7Dg4OERFRSmKkpycvGfPnoCAgFyrJC/75Zdf6tSpk5KSoijKihUrihQpMnDgwB9//FH9E0p2dSi8sn4zFUXx8fEJDg5+8OCBu7v7lStX5NaGd8dIWDkoIyNDUZQVK1bUqFFj+/btzZs3T0pKWrRo0TfffJObZagRkjV909LSatasWapUKXW4rm3btqldgrFixQpra+uQkBB18cmTJ1WqVMnpvuvAG927d09RlGXLljVr1kxRlI0bN/74449q04EDB9T/apDvMBJWDlLHvpDemcLa2vq5oUJCQkJu375tb29vZ2dHhyy9iIiIL7/88tChQ+rIYkKIgICAjz/+OJfv3wPPuXfvnq+vr/qExaxZs/78889u3bqpTTqd7qeffipTpgxdOvIrzoBzVFBQULt27dSfd+/eXbVq1cePHyuKsmrVqtOnT+daGerDwYqi7NmzRz33vXTp0oIFC/SnxVCyfEqKoty7d69MmTIPHjxQFCU4ODg3/7GA53z55Zdjx45VFGXcuHFTpkxRV+by/yF473gOOMflkW4+9vb2QojQ0NAePXps2bLFx8fnzz//HDVq1IABA2xsbHKnhrxP/ZRUU6dOnTBhwqVLl7y9vYcNG7Zjxw6JhaGQmz59ekpKiqen56ZNm9q3by+ECAwMnDBhgomJSUpKyt69e2fNmiW7RrwVzoBzQR7p5uPu7r5p0yZF6txN+cKlS5esrKzatGnTo0ePiIiI6tWrJyUlyS4KhV1cXJzaXUPfpeO5/hzIX+iEldvkdvMZMWLEN998k7VDlqIo69evb9myZe4UkF8sX768devWERERiqJ888038+fP12q1ixcvrlq1akJCguzqUKhl/f1V7yhVqVKFgWbzIwI4V505c8be3l6dvlc1adKkAQMG5FoBOp1u9+7dWdNXp9N169Zt5MiRiqI8ffo01yrJL9RHPg4cOODh4eHn58c06ZDrzJkzz6XvwYMHL1y4UL169fT0dNnVwTAEcG7LC9189DWos0fUrVs3MTExIyPD3d2d3+HnjBo1ytHR8eOPP/7zzz9TU1MnTpxYsWJFLy+v/fv3yy4NhZT6+xsSEqK/8hwUFNSxY0fZdcFgPIaU217azadr166XL18eMmSIp6dnrtWgKMqIESNOnz69d+/eEiVKbNu2rXz58qamprlQQD5SoUKFxYsX+/n5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"/>
+</div>
+</article>
+<div class="proc_note_group">
+<p class="c proctitle">表“BMI-Outcome_char”的统计量</p>
+</div>
+<article id="IDX3" aria-label="卡方检验">
+<h1 class="contentitem toc">卡方检验</h1>
+<table class="table" style="border-spacing: 0" aria-label="卡方检验">
+<caption aria-label="卡方检验"></caption>
+<colgroup><col/></colgroup><colgroup><col/><col/><col/></colgroup>
+<thead>
+<tr>
+<th class="b header" scope="col">统计量</th>
+<th class="r b header" scope="col">自由度</th>
+<th class="r b header" scope="col">值</th>
+<th class="r b header" scope="col">概率</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th class="rowheader" scope="row">卡方</th>
+<td class="r data">3</td>
+<td class="r data">78.2488</td>
+<td class="r data">&lt;.0001</td>
+</tr>
+<tr>
+<th class="rowheader" scope="row">似然比卡方检验</th>
+<td class="r data">3</td>
+<td class="r data">88.6189</td>
+<td class="r data">&lt;.0001</td>
+</tr>
+<tr>
+<th class="rowheader" scope="row">Mantel-Haenszel 卡方</th>
+<td class="r data">1</td>
+<td class="r data">53.6706</td>
+<td class="r data">&lt;.0001</td>
+</tr>
+<tr>
+<th class="rowheader" scope="row">Phi 系数</th>
+<td class="r data">&#160;</td>
+<td class="r data">0.3192</td>
+<td class="r data">&#160;</td>
+</tr>
+<tr>
+<th class="rowheader" scope="row">列联系数</th>
+<td class="r data">&#160;</td>
+<td class="r data">0.3041</td>
+<td class="r data">&#160;</td>
+</tr>
+<tr>
+<th class="rowheader" scope="row">Cramer V</th>
+<td class="r data">&#160;</td>
+<td class="r data">0.3192</td>
+<td class="r data">&#160;</td>
+</tr>
+</tbody>
+</table>
+</article>
+<div class="proc_note_group">
+<p class="c proctitle">样本大小 = 768</p>
+</div>
+</section>
+</section>
+<section data-name="Freq" data-sec-type="proc">
+<hr class="pagebreak"/>
+<div id="IDX4" class="systitleandfootercontainer" style="border-spacing: 1px">
+<p><span class="c systemtitle">Mosaic Plot of Diabetes Outcome by BMI Categories</span> </p>
+</div>
+<div class="proc_title_group">
+<p class="c proctitle">FREQ 过程</p>
+</div>
+<h1 class="contentprocname toc">Freq 过程</h1>
+<section>
+<h1 class="contentfolder toc">表“Outcome_char-BMI_ord”</h1>
+<article aria-label="交叉表频数表">
+<h1 class="contentitem toc">交叉表频数表</h1>
+<table role="presentation">
+<tr>
+<td class="c t"><table class="table" style="border-spacing: 0">
+<colgroup><col/></colgroup>
+<tbody>
+<tr>
+<th class="t header" scope="col">
+<div class="stacked-cell">
+<div class="t">频数</div>
+<div class="t">期望</div>
+<div class="t">百分比</div>
+<div class="t">行百分比</div>
+<div class="t">列百分比</div>
+</div>
+</th>
+</tr>
+</tbody>
+</table>
+</td>
+<td><table class="table" style="border-spacing: 0" aria-label="交叉表频数表">
+<caption aria-label="交叉表频数表"></caption>
+<colgroup><col/></colgroup><colgroup><col/><col/><col/></colgroup>
+<thead>
+<tr>
+<th class="c header" colspan="4" scope="colgroup">BMI_ord-Outcome_char表</th>
+</tr>
+<tr>
+<th class="c b header" rowspan="2" scope="col">BMI_ord</th>
+<th class="c b header" colspan="3" scope="colgroup">Outcome_char</th>
+</tr>
+<tr>
+<th class="r header" scope="col">Diabetes</th>
+<th class="r header" scope="col">No Diabetes</th>
+<th class="r header" scope="col">合计</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th class="t rowheader" scope="row">Healthy Weight</th>
+<td class="r t data">
+<div class="stacked-cell">
+<div class="r t">7</div>
+<div class="r t">35.594</div>
+<div class="r t">0.91</div>
+<div class="r t">6.86</div>
+<div class="r t">2.61</div>
+</div>
+</td>
+<td class="r t data">
+<div class="stacked-cell">
+<div class="r t">95</div>
+<div class="r t">66.406</div>
+<div class="r t">12.37</div>
+<div class="r t">93.14</div>
+<div class="r t">19.00</div>
+</div>
+</td>
+<td class="r t data">
+<div class="stacked-cell">
+<div class="r t">102</div>
+<div class="r t">&#160;</div>
+<div class="r t">13.28</div>
+<div class="r t">&#160;</div>
+<div class="r t">&#160;</div>
+</div>
+</td>
+</tr>
+<tr>
+<th class="t rowheader" scope="row">Obesity</th>
+<td class="r t data">
+<div class="stacked-cell">
+<div class="r t">219</div>
+<div class="r t">164.71</div>
+<div class="r t">28.52</div>
+<div class="r t">46.40</div>
+<div class="r t">81.72</div>
+</div>
+</td>
+<td class="r t data">
+<div class="stacked-cell">
+<div class="r t">253</div>
+<div class="r t">307.29</div>
+<div class="r t">32.94</div>
+<div class="r t">53.60</div>
+<div class="r t">50.60</div>
+</div>
+</td>
+<td class="r t data">
+<div class="stacked-cell">
+<div class="r t">472</div>
+<div class="r t">&#160;</div>
+<div class="r t">61.46</div>
+<div class="r t">&#160;</div>
+<div class="r t">&#160;</div>
+</div>
+</td>
+</tr>
+<tr>
+<th class="t rowheader" scope="row">Overweight</th>
+<td class="r t data">
+<div class="stacked-cell">
+<div class="r t">40</div>
+<div class="r t">62.464</div>
+<div class="r t">5.21</div>
+<div class="r t">22.35</div>
+<div class="r t">14.93</div>
+</div>
+</td>
+<td class="r t data">
+<div class="stacked-cell">
+<div class="r t">139</div>
+<div class="r t">116.54</div>
+<div class="r t">18.10</div>
+<div class="r t">77.65</div>
+<div class="r t">27.80</div>
+</div>
+</td>
+<td class="r t data">
+<div class="stacked-cell">
+<div class="r t">179</div>
+<div class="r t">&#160;</div>
+<div class="r t">23.31</div>
+<div class="r t">&#160;</div>
+<div class="r t">&#160;</div>
+</div>
+</td>
+</tr>
+<tr>
+<th class="t rowheader" scope="row">Underweight</th>
+<td class="r t data">
+<div class="stacked-cell">
+<div class="r t">2</div>
+<div class="r t">5.2344</div>
+<div class="r t">0.26</div>
+<div class="r t">13.33</div>
+<div class="r t">0.75</div>
+</div>
+</td>
+<td class="r t data">
+<div class="stacked-cell">
+<div class="r t">13</div>
+<div class="r t">9.7656</div>
+<div class="r t">1.69</div>
+<div class="r t">86.67</div>
+<div class="r t">2.60</div>
+</div>
+</td>
+<td class="r t data">
+<div class="stacked-cell">
+<div class="r t">15</div>
+<div class="r t">&#160;</div>
+<div class="r t">1.95</div>
+<div class="r t">&#160;</div>
+<div class="r t">&#160;</div>
+</div>
+</td>
+</tr>
+<tr>
+<th class="t rowheader" scope="row">合计</th>
+<td class="r t data">
+<div class="stacked-cell">
+<div class="r t">268</div>
+<div class="r t">34.90</div>
+</div>
+</td>
+<td class="r t data">
+<div class="stacked-cell">
+<div class="r t">500</div>
+<div class="r t">65.10</div>
+</div>
+</td>
+<td class="r t data">
+<div class="stacked-cell">
+<div class="r t">768</div>
+<div class="r t">100.00</div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</table>
+</article>
+<div class="proc_note_group">
+<p class="c proctitle">表“Outcome_char-BMI_ord”的统计量</p>
+</div>
+<article id="IDX5" aria-label="卡方检验">
+<h1 class="contentitem toc">卡方检验</h1>
+<table class="table" style="border-spacing: 0" aria-label="卡方检验">
+<caption aria-label="卡方检验"></caption>
+<colgroup><col/></colgroup><colgroup><col/><col/><col/></colgroup>
+<thead>
+<tr>
+<th class="b header" scope="col">统计量</th>
+<th class="r b header" scope="col">自由度</th>
+<th class="r b header" scope="col">值</th>
+<th class="r b header" scope="col">概率</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th class="rowheader" scope="row">卡方</th>
+<td class="r data">3</td>
+<td class="r data">78.2488</td>
+<td class="r data">&lt;.0001</td>
+</tr>
+<tr>
+<th class="rowheader" scope="row">似然比卡方检验</th>
+<td class="r data">3</td>
+<td class="r data">88.6189</td>
+<td class="r data">&lt;.0001</td>
+</tr>
+<tr>
+<th class="rowheader" scope="row">Mantel-Haenszel 卡方</th>
+<td class="r data">1</td>
+<td class="r data">0.0015</td>
+<td class="r data">0.9686</td>
+</tr>
+<tr>
+<th class="rowheader" scope="row">Phi 系数</th>
+<td class="r data">&#160;</td>
+<td class="r data">0.3192</td>
+<td class="r data">&#160;</td>
+</tr>
+<tr>
+<th class="rowheader" scope="row">列联系数</th>
+<td class="r data">&#160;</td>
+<td class="r data">0.3041</td>
+<td class="r data">&#160;</td>
+</tr>
+<tr>
+<th class="rowheader" scope="row">Cramer V</th>
+<td class="r data">&#160;</td>
+<td class="r data">0.3192</td>
+<td class="r data">&#160;</td>
+</tr>
+</tbody>
+</table>
+</article>
+<div class="proc_note_group">
+<p class="c proctitle">样本大小 = 768</p>
+</div>
+</section>
+</section>
+<section data-name="Logistic" data-sec-type="proc">
+<hr class="pagebreak"/>
+<div id="IDX6" class="systitleandfootercontainer" style="border-spacing: 1px">
+<p><span class="c systemtitle">Mosaic Plot of Diabetes Outcome by BMI Categories</span> </p>
+</div>
+<div class="proc_title_group">
+<p class="c proctitle">“LOGISTIC”过程</p>
+</div>
+<h1 class="contentprocname toc">Logistic 过程</h1>
+<article aria-label="模型信息">
+<h1 class="contentitem toc">模型信息</h1>
+<table class="table" style="border-spacing: 0" aria-label="模型信息">
+<caption aria-label="模型信息"></caption>
+<colgroup><col/><col/></colgroup>
+<thead>
+<tr>
+<th class="c b header" colspan="2" scope="colgroup">模型信息</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th class="rowheader" scope="row">数据集</th>
+<td class="data">WORK.DIABETES</td>
+</tr>
+<tr>
+<th class="rowheader" scope="row">响应变量</th>
+<td class="data">Outcome_char</td>
+</tr>
+<tr>
+<th class="rowheader" scope="row">响应水平数</th>
+<td class="data">2</td>
+</tr>
+<tr>
+<th class="rowheader" scope="row">模型</th>
+<td class="data">二元 Logit</td>
+</tr>
+<tr>
+<th class="rowheader" scope="row">优化方法</th>
+<td class="data">Fisher 评分法</td>
+</tr>
+</tbody>
+</table>
+</article>
+<article id="IDX7" aria-label="观测汇总">
+<h1 class="contentitem toc">观测汇总</h1>
+<table class="table" style="border-spacing: 0" aria-label="观测汇总">
+<caption aria-label="观测汇总"></caption>
+<colgroup><col/><col/></colgroup>
+<tbody>
+<tr>
+<th class="rowheader" scope="row">读取的观测数</th>
+<td class="r data">768</td>
+</tr>
+<tr>
+<th class="rowheader" scope="row">使用的观测数</th>
+<td class="r data">768</td>
+</tr>
+</tbody>
+</table>
+</article>
+<article id="IDX8" aria-label="响应概略">
+<h1 class="contentitem toc">响应概略</h1>
+<table class="table" style="border-spacing: 0" aria-label="响应概略">
+<caption aria-label="响应概略"></caption>
+<colgroup><col/><col/><col/></colgroup>
+<thead>
+<tr>
+<th class="c b header" colspan="3" scope="colgroup">响应概略</th>
+</tr>
+<tr>
+<th class="r b header" scope="col">有序<br/>值</th>
+<th class="b header" scope="col">Outcome_char</th>
+<th class="r b header" scope="col">总<br/>频数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th class="r rowheader" scope="row">1</th>
+<td class="data">Diabetes</td>
+<td class="r data">268</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">2</th>
+<td class="data">No Diabetes</td>
+<td class="r data">500</td>
+</tr>
+</tbody>
+</table>
+<div class="proc_note_group">
+<p class="c proctitle">建模的概率为 Outcome_char=&apos;Diabetes&apos;。</p>
+</div>
+</article>
+<article id="IDX9" aria-label="分类水平信息">
+<h1 class="contentitem toc">分类水平信息</h1>
+<table class="table" style="border-spacing: 0" aria-label="分类水平信息">
+<caption aria-label="分类水平信息"></caption>
+<colgroup><col/><col/><col/><col/><col/></colgroup>
+<thead>
+<tr>
+<th class="c b header" colspan="5" scope="colgroup">分类水平信息</th>
+</tr>
+<tr>
+<th class="b header" scope="col">分类</th>
+<th class="b header" scope="col">值</th>
+<th class="c b header" colspan="3" scope="colgroup">设计变量</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th class="rowheader" scope="row">BMI_ord</th>
+<th class="rowheader" scope="row">Healthy Weight</th>
+<td class="r data">0</td>
+<td class="r data">0</td>
+<td class="r data">0</td>
+</tr>
+<tr>
+<th class="rowheader" scope="row">&#160;</th>
+<th class="rowheader" scope="row">Obesity</th>
+<td class="r data">1</td>
+<td class="r data">0</td>
+<td class="r data">0</td>
+</tr>
+<tr>
+<th class="rowheader" scope="row">&#160;</th>
+<th class="rowheader" scope="row">Overweight</th>
+<td class="r data">0</td>
+<td class="r data">1</td>
+<td class="r data">0</td>
+</tr>
+<tr>
+<th class="rowheader" scope="row">&#160;</th>
+<th class="rowheader" scope="row">Underweight</th>
+<td class="r data">0</td>
+<td class="r data">0</td>
+<td class="r data">1</td>
+</tr>
+</tbody>
+</table>
+</article>
+<article id="IDX10" aria-label="收敛状态">
+<h1 class="contentitem toc">收敛状态</h1>
+<table class="table" style="border-spacing: 0" aria-label="收敛状态">
+<caption aria-label="收敛状态"></caption>
+<colgroup><col/></colgroup>
+<thead>
+<tr>
+<th class="c b header" scope="col">模型收敛状态</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="c data">满足收敛准则 (GCONV=1E-8)。</td>
+</tr>
+</tbody>
+</table>
+</article>
+<article id="IDX11" aria-label="拟合统计量">
+<h1 class="contentitem toc">拟合统计量</h1>
+<table class="table" style="border-spacing: 0" aria-label="拟合统计量">
+<caption aria-label="拟合统计量"></caption>
+<colgroup><col/><col/><col/></colgroup>
+<thead>
+<tr>
+<th class="c b header" colspan="3" scope="colgroup">模型拟合统计量</th>
+</tr>
+<tr>
+<th class="b header" scope="col">准则</th>
+<th class="r b header" scope="col">仅截距</th>
+<th class="r b header" scope="col">截距和协变量</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th class="rowheader" scope="row">AIC</th>
+<td class="r data">995.484</td>
+<td class="r data">912.865</td>
+</tr>
+<tr>
+<th class="rowheader" scope="row">SC</th>
+<td class="r data">1000.128</td>
+<td class="r data">931.440</td>
+</tr>
+<tr>
+<th class="rowheader" scope="row">-2 Log L</th>
+<td class="r data">993.484</td>
+<td class="r data">904.865</td>
+</tr>
+</tbody>
+</table>
+</article>
+<article id="IDX12" aria-label="全局检验">
+<h1 class="contentitem toc">全局检验</h1>
+<table class="table" style="border-spacing: 0" aria-label="全局检验">
+<caption aria-label="全局检验"></caption>
+<colgroup><col/><col/><col/><col/></colgroup>
+<thead>
+<tr>
+<th class="c b header" colspan="4" scope="colgroup">检验全局原假设: BETA=0</th>
+</tr>
+<tr>
+<th class="b header" scope="col">检验</th>
+<th class="r b header" scope="col">卡方</th>
+<th class="r b header" scope="col">自由度</th>
+<th class="r b header" scope="col">Pr&#160;&gt;&#160;卡方</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th class="rowheader" scope="row">似然比</th>
+<td class="r data">88.6189</td>
+<td class="r data">3</td>
+<td class="r data">&lt;.0001</td>
+</tr>
+<tr>
+<th class="rowheader" scope="row">评分</th>
+<td class="r data">78.2488</td>
+<td class="r data">3</td>
+<td class="r data">&lt;.0001</td>
+</tr>
+<tr>
+<th class="rowheader" scope="row">Wald</th>
+<td class="r data">64.3108</td>
+<td class="r data">3</td>
+<td class="r data">&lt;.0001</td>
+</tr>
+</tbody>
+</table>
+</article>
+<article id="IDX13" aria-label="3 型检验">
+<h1 class="contentitem toc">3 型检验</h1>
+<table class="table" style="border-spacing: 0" aria-label="3 型检验">
+<caption aria-label="3 型检验"></caption>
+<colgroup><col/></colgroup><colgroup><col/><col/><col/></colgroup>
+<thead>
+<tr>
+<th class="c b header" colspan="4" scope="colgroup">3 型效应分析</th>
+</tr>
+<tr>
+<th class="b header" scope="col">效应</th>
+<th class="r b header" scope="col">自由度</th>
+<th class="r b header" scope="col">Wald<br/>卡方</th>
+<th class="r b header" scope="col">Pr&#160;&gt;&#160;卡方</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th class="rowheader" scope="row">BMI_ord</th>
+<td class="r data">3</td>
+<td class="r data">64.3108</td>
+<td class="r data">&lt;.0001</td>
+</tr>
+</tbody>
+</table>
+</article>
+<article id="IDX14" aria-label="参数估计">
+<h1 class="contentitem toc">参数估计</h1>
+<table class="table" style="border-spacing: 0" aria-label="参数估计">
+<caption aria-label="参数估计"></caption>
+<colgroup><col/><col/></colgroup><colgroup><col/><col/><col/><col/><col/></colgroup>
+<thead>
+<tr>
+<th class="c b header" colspan="7" scope="colgroup">最大似然估计分析</th>
+</tr>
+<tr>
+<th class="b header" scope="col">参数</th>
+<th class="b header" scope="col"> &#160;</th>
+<th class="r b header" scope="col">自由度</th>
+<th class="r b header" scope="col">估计</th>
+<th class="r b header" scope="col">标准<br/>误差</th>
+<th class="r b header" scope="col">Wald<br/>卡方</th>
+<th class="r b header" scope="col">Pr&#160;&gt;&#160;卡方</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th class="rowheader" scope="row">Intercept</th>
+<th class="rowheader" scope="row">&#160;</th>
+<td class="r data">1</td>
+<td class="r data" style="white-space: nowrap">-2.6079</td>
+<td class="r data">0.3916</td>
+<td class="r data">44.3434</td>
+<td class="r data">&lt;.0001</td>
+</tr>
+<tr>
+<th class="rowheader" scope="row">BMI_ord</th>
+<th class="rowheader" scope="row">Obesity</th>
+<td class="r data">1</td>
+<td class="r data">2.4636</td>
+<td class="r data">0.4024</td>
+<td class="r data">37.4891</td>
+<td class="r data">&lt;.0001</td>
+</tr>
+<tr>
+<th class="rowheader" scope="row">BMI_ord</th>
+<th class="rowheader" scope="row">Overweight</th>
+<td class="r data">1</td>
+<td class="r data">1.3623</td>
+<td class="r data">0.4308</td>
+<td class="r data">10.0009</td>
+<td class="r data">0.0016</td>
+</tr>
+<tr>
+<th class="rowheader" scope="row">BMI_ord</th>
+<th class="rowheader" scope="row">Underweight</th>
+<td class="r data">1</td>
+<td class="r data">0.7361</td>
+<td class="r data">0.8546</td>
+<td class="r data">0.7419</td>
+<td class="r data">0.3890</td>
+</tr>
+</tbody>
+</table>
+</article>
+<article id="IDX15" aria-label="优比">
+<h1 class="contentitem toc">优比</h1>
+<table class="table" style="border-spacing: 0" aria-label="优比">
+<caption aria-label="优比"></caption>
+<colgroup><col/></colgroup><colgroup><col/><col/><col/></colgroup>
+<thead>
+<tr>
+<th class="c b header" colspan="4" scope="colgroup">优比估计</th>
+</tr>
+<tr>
+<th class="b header" scope="col">效应</th>
+<th class="r b header" scope="col">点估计</th>
+<th class="c b header" colspan="2" scope="colgroup">95% Wald<br/>置信限</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th class="rowheader" scope="row">BMI_ord Obesity     vs Healthy Weight</th>
+<td class="r data">11.747</td>
+<td class="r data">5.339</td>
+<td class="r data">25.847</td>
+</tr>
+<tr>
+<th class="rowheader" scope="row">BMI_ord Overweight  vs Healthy Weight</th>
+<td class="r data">3.905</td>
+<td class="r data">1.679</td>
+<td class="r data">9.085</td>
+</tr>
+<tr>
+<th class="rowheader" scope="row">BMI_ord Underweight vs Healthy Weight</th>
+<td class="r data">2.088</td>
+<td class="r data">0.391</td>
+<td class="r data">11.145</td>
+</tr>
+</tbody>
+</table>
+</article>
+<article id="IDX16" aria-label="关联统计量">
+<h1 class="contentitem toc">关联统计量</h1>
+<table class="table" style="border-spacing: 0" aria-label="关联统计量">
+<caption aria-label="关联统计量"></caption>
+<colgroup><col/><col/><col/><col/></colgroup>
+<thead>
+<tr>
+<th class="c b header" colspan="4" scope="colgroup">预测概率和观测响应的关联</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th class="rowheader" scope="row">一致部分所占百分比</th>
+<td class="r data">43.7</td>
+<th class="rowheader" scope="row">Somers D</th>
+<td class="r data">0.335</td>
+</tr>
+<tr>
+<th class="rowheader" scope="row">不一致部分所占百分比</th>
+<td class="r data">10.3</td>
+<th class="rowheader" scope="row">Gamma</th>
+<td class="r data">0.620</td>
+</tr>
+<tr>
+<th class="rowheader" scope="row">结值百分比</th>
+<td class="r data">46.0</td>
+<th class="rowheader" scope="row">Tau-a</th>
+<td class="r data">0.152</td>
+</tr>
+<tr>
+<th class="rowheader" scope="row">对</th>
+<td class="r data">134000</td>
+<th class="rowheader" scope="row">c</th>
+<td class="r data">0.667</td>
+</tr>
+</tbody>
+</table>
+</article>
+<article id="IDX17" aria-label="95% Clparm=Wald">
+<h1 class="contentitem toc">95% Clparm=Wald</h1>
+<table class="table" style="border-spacing: 0" aria-label="95% Clparm=Wald">
+<caption aria-label="95% Clparm=Wald"></caption>
+<colgroup><col/><col/></colgroup><colgroup><col/><col/><col/></colgroup>
+<thead>
+<tr>
+<th class="c b header" colspan="5" scope="colgroup">参数估计和 Wald 置信区间</th>
+</tr>
+<tr>
+<th class="b header" scope="col">参数</th>
+<th class="b header" scope="col"> &#160;</th>
+<th class="r b header" scope="col">估计</th>
+<th class="c b header" colspan="2" scope="colgroup">95% 置信限</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th class="rowheader" scope="row">Intercept</th>
+<th class="rowheader" scope="row">&#160;</th>
+<td class="r data" style="white-space: nowrap">-2.6079</td>
+<td class="r data" style="white-space: nowrap">-3.3755</td>
+<td class="r data" style="white-space: nowrap">-1.8403</td>
+</tr>
+<tr>
+<th class="rowheader" scope="row">BMI_ord</th>
+<th class="rowheader" scope="row">Obesity</th>
+<td class="r data">2.4636</td>
+<td class="r data">1.6750</td>
+<td class="r data">3.2522</td>
+</tr>
+<tr>
+<th class="rowheader" scope="row">BMI_ord</th>
+<th class="rowheader" scope="row">Overweight</th>
+<td class="r data">1.3623</td>
+<td class="r data">0.5180</td>
+<td class="r data">2.2066</td>
+</tr>
+<tr>
+<th class="rowheader" scope="row">BMI_ord</th>
+<th class="rowheader" scope="row">Underweight</th>
+<td class="r data">0.7361</td>
+<td class="r data" style="white-space: nowrap">-0.9388</td>
+<td class="r data">2.4110</td>
+</tr>
+</tbody>
+</table>
+</article>
+</section>
+</div>
+</body>
+</html>
