@@ -978,6 +978,132 @@ if(p.value &lt; significance.level){
 </div>
 <div id="fisher-exact-tests" class="section level3">
 <h3>Fisher Exact tests</h3>
+<pre class="r"><code># Contingency table 
+table_contingency &lt;- table(diabetes.dat$BMI.ord, diabetes.dat$Outcome)
+# Check if there&#39;s independence for all data
+fisher_result &lt;- fisher.test(table_contingency)
+print(fisher_result)</code></pre>
+<pre><code>## 
+##  Fisher&#39;s Exact Test for Count Data
+## 
+## data:  table_contingency
+## p-value &lt; 2.2e-16
+## alternative hypothesis: two.sided</code></pre>
+<pre class="r"><code># Create 2x2 table to test the relationship between different BMI and diabetes 
+# Test for the relationship between underweight and diabetes vs.other categories
+non_under_no_diabetes &lt;- sum(table_contingency[&quot;Healthy Weight&quot;, &quot;No_Diabetes&quot;]) +
+                               sum(table_contingency[&quot;Overweight&quot;, &quot;No_Diabetes&quot;]) +
+                               sum(table_contingency[&quot;Obesity&quot;, &quot;No_Diabetes&quot;])
+non_under_diabetes &lt;- sum(table_contingency[&quot;Healthy Weight&quot;, &quot;Diabetes&quot;]) +
+                            sum(table_contingency[&quot;Overweight&quot;, &quot;Diabetes&quot;]) +
+                            sum(table_contingency[&quot;Obesity&quot;, &quot;Diabetes&quot;])
+under_vs_rest &lt;- matrix(c(table_contingency[&quot;Underweight&quot;, &quot;No_Diabetes&quot;],non_under_no_diabetes,table_contingency[&quot;Underweight&quot;, &quot;Diabetes&quot;], non_under_diabetes),nrow = 2, dimnames = list(&quot;BMI&quot; = c(&quot;Underweight&quot;, &quot;Non_Underweight&quot;),&quot;Outcome&quot; = c(&quot;No_Diabetes&quot;, &quot;Diabetes&quot;)))
+# Perform Fisher&#39;s Exact Test on underweight vs. others 2x2 table
+fisher_result_underweight &lt;- fisher.test(under_vs_rest)
+print(fisher_result_underweight)</code></pre>
+<pre><code>## 
+##  Fisher&#39;s Exact Test for Count Data
+## 
+## data:  under_vs_rest
+## p-value = 0.1008
+## alternative hypothesis: true odds ratio is not equal to 1
+## 95 percent confidence interval:
+##  0.03067875 1.25999127
+## sample estimates:
+## odds ratio 
+##  0.2820229</code></pre>
+<pre class="r"><code># Test for the relationship between Healthy weight and other categories
+non_healthy_no_diabetes &lt;- sum(table_contingency[&quot;Underweight&quot;, &quot;No_Diabetes&quot;]) +
+                               sum(table_contingency[&quot;Overweight&quot;, &quot;No_Diabetes&quot;]) +
+                               sum(table_contingency[&quot;Obesity&quot;, &quot;No_Diabetes&quot;])
+non_healthy_diabetes &lt;- sum(table_contingency[&quot;Underweight&quot;, &quot;Diabetes&quot;]) +
+                            sum(table_contingency[&quot;Overweight&quot;, &quot;Diabetes&quot;]) +
+                            sum(table_contingency[&quot;Obesity&quot;, &quot;Diabetes&quot;])
+healthy_vs_rest &lt;- matrix(c(table_contingency[&quot;Healthy Weight&quot;, &quot;No_Diabetes&quot;],non_healthy_no_diabetes,table_contingency[&quot;Healthy Weight&quot;, &quot;Diabetes&quot;], non_healthy_diabetes),nrow = 2, dimnames = list(&quot;BMI&quot; = c(&quot;Healthy&quot;, &quot;Non_Healthy&quot;),&quot;Outcome&quot; = c(&quot;No_Diabetes&quot;, &quot;Diabetes&quot;)))
+# Perform Fisher&#39;s Exact Test on underweight vs. others 2x2 table
+fisher_result_healthy &lt;- fisher.test(healthy_vs_rest)
+print(fisher_result_healthy)</code></pre>
+<pre><code>## 
+##  Fisher&#39;s Exact Test for Count Data
+## 
+## data:  healthy_vs_rest
+## p-value = 3.832e-12
+## alternative hypothesis: true odds ratio is not equal to 1
+## 95 percent confidence interval:
+##  0.04472103 0.25402370
+## sample estimates:
+## odds ratio 
+##  0.1160785</code></pre>
+<pre class="r"><code># Test for the relationship between Overweight and other categories
+non_over_no_diabetes &lt;- sum(table_contingency[&quot;Underweight&quot;, &quot;No_Diabetes&quot;]) +
+                               sum(table_contingency[&quot;Healthy Weight&quot;, &quot;No_Diabetes&quot;]) +
+                               sum(table_contingency[&quot;Obesity&quot;, &quot;No_Diabetes&quot;])
+non_over_diabetes &lt;- sum(table_contingency[&quot;Underweight&quot;, &quot;Diabetes&quot;]) +
+                            sum(table_contingency[&quot;Healthy Weight&quot;, &quot;Diabetes&quot;]) +
+                            sum(table_contingency[&quot;Obesity&quot;, &quot;Diabetes&quot;])
+over_vs_rest &lt;- matrix(c(table_contingency[&quot;Overweight&quot;, &quot;No_Diabetes&quot;],non_over_no_diabetes,table_contingency[&quot;Overweight&quot;, &quot;Diabetes&quot;], non_over_diabetes),nrow = 2, dimnames = list(&quot;BMI&quot; = c(&quot;Overweight&quot;, &quot;Non_Overweight&quot;),&quot;Outcome&quot; = c(&quot;No_Diabetes&quot;, &quot;Diabetes&quot;)))
+# Perform Fisher&#39;s Exact Test on underweight vs. others 2x2 table
+fisher_result_over &lt;- fisher.test(over_vs_rest)
+print(fisher_result_over)</code></pre>
+<pre><code>## 
+##  Fisher&#39;s Exact Test for Count Data
+## 
+## data:  over_vs_rest
+## p-value = 2.971e-05
+## alternative hypothesis: true odds ratio is not equal to 1
+## 95 percent confidence interval:
+##  0.2866308 0.6582141
+## sample estimates:
+## odds ratio 
+##   0.438203</code></pre>
+<pre class="r"><code># Test for the relationship between obesity and other categories
+non_obesity_no_diabetes &lt;- sum(table_contingency[&quot;Underweight&quot;, &quot;No_Diabetes&quot;]) +
+                               sum(table_contingency[&quot;Healthy Weight&quot;, &quot;No_Diabetes&quot;]) +
+                               sum(table_contingency[&quot;Overweight&quot;, &quot;No_Diabetes&quot;])
+non_obesity_diabetes &lt;- sum(table_contingency[&quot;Underweight&quot;, &quot;Diabetes&quot;]) +
+                            sum(table_contingency[&quot;Healthy Weight&quot;, &quot;Diabetes&quot;]) +
+                            sum(table_contingency[&quot;Overweight&quot;, &quot;Diabetes&quot;])
+obesity_vs_rest &lt;- matrix(c(table_contingency[&quot;Obesity&quot;, &quot;No_Diabetes&quot;],non_obesity_no_diabetes,table_contingency[&quot;Obesity&quot;, &quot;Diabetes&quot;], non_obesity_diabetes),nrow = 2, dimnames = list(&quot;BMI&quot; = c(&quot;Obesity&quot;, &quot;Non_Obesity&quot;),&quot;Outcome&quot; = c(&quot;No_Diabetes&quot;, &quot;Diabetes&quot;)))
+# Perform Fisher&#39;s Exact Test on underweight vs. others 2x2 table
+fisher_result_obesity &lt;- fisher.test(obesity_vs_rest)
+print(fisher_result_obesity)</code></pre>
+<pre><code>## 
+##  Fisher&#39;s Exact Test for Count Data
+## 
+## data:  obesity_vs_rest
+## p-value &lt; 2.2e-16
+## alternative hypothesis: true odds ratio is not equal to 1
+## 95 percent confidence interval:
+##  3.090343 6.567864
+## sample estimates:
+## odds ratio 
+##   4.473129</code></pre>
+<pre class="r"><code># Create a p-value and odds ratio table to visualize the relationship
+p_values &lt;- c(
+  underweight_vs_others = fisher_result_underweight$p.value, 
+  healthy_weight_vs_others = fisher_result_healthy$p.value, 
+  overweight_vs_others = fisher_result_over$p.value, 
+  obesity_vs_others = fisher_result_obesity$p.value
+)
+odds_ratio &lt;- c(
+  underweight_vs_others = fisher_result_underweight$estimate, 
+  healthy_weight_vs_others = fisher_result_healthy$estimate, 
+  overweight_vs_others = fisher_result_over$estimate, 
+  obesity_vs_others = fisher_result_obesity$estimate
+)
+# Create a data frame with the p-values
+results_table &lt;- data.frame(
+  Odds_ratio = odds_ratio ,
+  P_Value = p_values
+)
+row.names(results_table) &lt;- c(&quot;Underweight vs Others&quot;, &quot;Healthy Weight vs Others&quot;, &quot;Overweight vs Others&quot;, &quot;Obesity vs Others&quot;)
+# Print the table
+print(results_table)</code></pre>
+<pre><code>##                          Odds_ratio      P_Value
+## Underweight vs Others     0.2820229 1.007893e-01
+## Healthy Weight vs Others  0.1160785 3.831634e-12
+## Overweight vs Others      0.4382030 2.970554e-05
+## Obesity vs Others         4.4731292 1.909548e-18</code></pre>
 </div>
 <div id="logistic-regression-if-approved-by-professor-tbd" class="section level3">
 <h3>logistic regression (if approved by professor, TBD)</h3>
