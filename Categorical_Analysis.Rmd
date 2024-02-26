@@ -247,7 +247,90 @@ if(p.value < significance.level){
 ### Fisher Exact tests
 
 ```{r}
+# Contingency table 
+table_contingency <- table(diabetes.dat$BMI.ord, diabetes.dat$Outcome)
+# Check if there's independence for all data
+fisher_result <- fisher.test(table_contingency)
+print(fisher_result)
+```
 
+```{r}
+# Create 2x2 table to test the relationship between different BMI and diabetes 
+# Test for the relationship between underweight and diabetes vs.other categories
+non_under_no_diabetes <- sum(table_contingency["Healthy Weight", "No_Diabetes"]) +
+                               sum(table_contingency["Overweight", "No_Diabetes"]) +
+                               sum(table_contingency["Obesity", "No_Diabetes"])
+non_under_diabetes <- sum(table_contingency["Healthy Weight", "Diabetes"]) +
+                            sum(table_contingency["Overweight", "Diabetes"]) +
+                            sum(table_contingency["Obesity", "Diabetes"])
+under_vs_rest <- matrix(c(table_contingency["Underweight", "No_Diabetes"],non_under_no_diabetes,table_contingency["Underweight", "Diabetes"], non_under_diabetes),nrow = 2, dimnames = list("BMI" = c("Underweight", "Non_Underweight"),"Outcome" = c("No_Diabetes", "Diabetes")))
+# Perform Fisher's Exact Test on underweight vs. others 2x2 table
+fisher_result_underweight <- fisher.test(under_vs_rest)
+print(fisher_result_underweight)
+```
+```{r}
+# Test for the relationship between Healthy weight and other categories
+non_healthy_no_diabetes <- sum(table_contingency["Underweight", "No_Diabetes"]) +
+                               sum(table_contingency["Overweight", "No_Diabetes"]) +
+                               sum(table_contingency["Obesity", "No_Diabetes"])
+non_healthy_diabetes <- sum(table_contingency["Underweight", "Diabetes"]) +
+                            sum(table_contingency["Overweight", "Diabetes"]) +
+                            sum(table_contingency["Obesity", "Diabetes"])
+healthy_vs_rest <- matrix(c(table_contingency["Healthy Weight", "No_Diabetes"],non_healthy_no_diabetes,table_contingency["Healthy Weight", "Diabetes"], non_healthy_diabetes),nrow = 2, dimnames = list("BMI" = c("Healthy", "Non_Healthy"),"Outcome" = c("No_Diabetes", "Diabetes")))
+# Perform Fisher's Exact Test on underweight vs. others 2x2 table
+fisher_result_healthy <- fisher.test(healthy_vs_rest)
+print(fisher_result_healthy)
+``` 
+
+```{r}
+# Test for the relationship between Overweight and other categories
+non_over_no_diabetes <- sum(table_contingency["Underweight", "No_Diabetes"]) +
+                               sum(table_contingency["Healthy Weight", "No_Diabetes"]) +
+                               sum(table_contingency["Obesity", "No_Diabetes"])
+non_over_diabetes <- sum(table_contingency["Underweight", "Diabetes"]) +
+                            sum(table_contingency["Healthy Weight", "Diabetes"]) +
+                            sum(table_contingency["Obesity", "Diabetes"])
+over_vs_rest <- matrix(c(table_contingency["Overweight", "No_Diabetes"],non_over_no_diabetes,table_contingency["Overweight", "Diabetes"], non_over_diabetes),nrow = 2, dimnames = list("BMI" = c("Overweight", "Non_Overweight"),"Outcome" = c("No_Diabetes", "Diabetes")))
+# Perform Fisher's Exact Test on underweight vs. others 2x2 table
+fisher_result_over <- fisher.test(over_vs_rest)
+print(fisher_result_over)
+``` 
+
+```{r}
+# Test for the relationship between obesity and other categories
+non_obesity_no_diabetes <- sum(table_contingency["Underweight", "No_Diabetes"]) +
+                               sum(table_contingency["Healthy Weight", "No_Diabetes"]) +
+                               sum(table_contingency["Overweight", "No_Diabetes"])
+non_obesity_diabetes <- sum(table_contingency["Underweight", "Diabetes"]) +
+                            sum(table_contingency["Healthy Weight", "Diabetes"]) +
+                            sum(table_contingency["Overweight", "Diabetes"])
+obesity_vs_rest <- matrix(c(table_contingency["Obesity", "No_Diabetes"],non_obesity_no_diabetes,table_contingency["Obesity", "Diabetes"], non_obesity_diabetes),nrow = 2, dimnames = list("BMI" = c("Obesity", "Non_Obesity"),"Outcome" = c("No_Diabetes", "Diabetes")))
+# Perform Fisher's Exact Test on underweight vs. others 2x2 table
+fisher_result_obesity <- fisher.test(obesity_vs_rest)
+print(fisher_result_obesity)
+``` 
+```{r}
+# Create a p-value and odds ratio table to visualize the relationship
+p_values <- c(
+  underweight_vs_others = fisher_result_underweight$p.value, 
+  healthy_weight_vs_others = fisher_result_healthy$p.value, 
+  overweight_vs_others = fisher_result_over$p.value, 
+  obesity_vs_others = fisher_result_obesity$p.value
+)
+odds_ratio <- c(
+  underweight_vs_others = fisher_result_underweight$estimate, 
+  healthy_weight_vs_others = fisher_result_healthy$estimate, 
+  overweight_vs_others = fisher_result_over$estimate, 
+  obesity_vs_others = fisher_result_obesity$estimate
+)
+# Create a data frame with the p-values
+results_table <- data.frame(
+  Odds_ratio = odds_ratio ,
+  P_Value = p_values
+)
+row.names(results_table) <- c("Underweight vs Others", "Healthy Weight vs Others", "Overweight vs Others", "Obesity vs Others")
+# Print the table
+print(results_table)
 ```
 
 ### logistic regression (if approved by professor, TBD)
