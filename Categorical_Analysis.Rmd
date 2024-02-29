@@ -176,10 +176,11 @@ $H_0: \pi_{ij}=\pi_{i+} \pi_{+j}$
 $H_\alpha:$ at least one $\pi_{ij}\neq\pi_{i+} \pi_{+j}$
 
 ```{r}
-critical_value=qchisq(p = .95, df = 3)
-
+critical_value=qchisq(p = .95, df = 2)
+p_value_pearson=pchisq(q=44.2914329052853, df=2, lower.tail=FALSE)
+p_value_log_likelihood=pchisq(q=54.0595809062812, df=2, lower.tail=FALSE)
 if(pearson_value > critical_value){
-  cat("Result for pearson independence test under 95% C.I:  \nWe can reject H0. Diabetes outcomes are dependent on and BMI categories!\n")
+  cat(paste("Result for pearson independence test under 95% C.I:  \nWe can reject H0 with p-value of pearson's test",p_value_pearson,". Diabetes outcomes are dependent on and BMI categories!\n"))
   
 }else{
    cat("Result for pearson independence test under 95% C.I:  \nWe can't reject H0, and Diabetes outcomes and BMI categories are independent!\n")
@@ -187,10 +188,10 @@ if(pearson_value > critical_value){
 ```
 
 ```{r}
-critical_value=qchisq(p = .95, df = 3)
+critical_value=qchisq(p = .95, df = 2)
 
 if(log_likelihood_value > critical_value){
-  cat("Result for log likelihood ratio (LR) independence test under 95% C.I: \nWe can reject H0. Diabetes outcomes are dependent on and BMI categories!\n")
+  cat(paste("Result for log likelihood ratio (LR) independence test under 95% C.I: \nWe can reject H0 with p-value of log-likelihood ratio test",p_value_log_likelihood,". Diabetes outcomes are dependent on and BMI categories!\n"))
 }else{
    cat("We can't reject H0, and Diabetes outcomes and BMI categories are independent!")
 }
