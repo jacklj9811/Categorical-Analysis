@@ -1,8 +1,10 @@
 ---
-title: "Title: Categorical Analysis on Diabetes"
-author: "Authors: Liangjie Lu, Weiting Lin, Luyang Zhang, Yaocao Chen"
+title: 'Title: Categorical Analysis on Diabetes'
+author: 'Authors: Liangjie Lu, Weiting Lin, Luyang Zhang, Yaocao Chen'
 date: "Date: 2024-02-19"
-output: html_document
+output:
+  html_document: default
+  pdf_document: default
 ---
 
 ```{r, setup, results='hide', message=FALSE, warning=FALSE, include=FALSE}
@@ -15,7 +17,7 @@ library(zoo)
 library(lubridate)
 library(tseries)
 library(forecast)
-library(funtimes)
+#library(funtimes)
 ```
 
 ## Data Loading and Preprocessing
@@ -23,10 +25,10 @@ library(funtimes)
 ```{r}
 diabetes.dat <- read.csv("diabetes.csv", header = TRUE)
 
-# Transform data Outcome from 0 to 'Diabetes' and "1" to 'No_Diabetes'
+# Transform data Outcome from 1 to 'Diabetes' and "0" to 'No_Diabetes'
 diabetes.dat$Outcome.val <- diabetes.dat$Outcome
-diabetes.dat$Outcome[diabetes.dat$Outcome == "0"] <- 'Diabetes'
-diabetes.dat$Outcome[diabetes.dat$Outcome == "1"] <- 'No_Diabetes'
+diabetes.dat$Outcome[diabetes.dat$Outcome == "1"] <- 'Diabetes'
+diabetes.dat$Outcome[diabetes.dat$Outcome == "0"] <- 'No_Diabetes'
 
 diabetes.dat$Outcome <- diabetes.dat$Outcome %>% as.factor
 diabetes.dat$BMI.ord <- diabetes.dat$BMI %>% cut(
@@ -34,7 +36,7 @@ diabetes.dat$BMI.ord <- diabetes.dat$BMI %>% cut(
   labels = c("Underweight", "Healthy Weight","Overweight", "Obesity"),
   right = FALSE) %>% factor(levels = c("Underweight", "Healthy Weight", "Overweight", "Obesity"))
 
-
+diabetes.dat %>% head()
 
 ```
 
@@ -337,9 +339,7 @@ print(results_table)
 ### logistic regression (if approved by professor, TBD)
 
 ```{r}
-
-diabetes.dat %>% head()
-model_full <- glm(factor(Outcome) ~ ., data = diabetes.dat, family = 'binomial')
+model_full <- glm(factor(Outcome) ~ .-Outcome.val - BMI.ord, data = diabetes.dat, family = 'binomial')
 summary(model_full)
 ```
 
@@ -347,11 +347,39 @@ summary(model_full)
 model1 <- glm(factor(Outcome) ~ BMI, data = diabetes.dat, family = 'binomial')
 summary(model1)
 ```
-
-### Confounding Variable -- Age
 ```{r}
-
+plot(model1)
 ```
+
+
+### Odds Ratio
+odds ratio = odds for diabetes among no obesity / among obesity
+sampling schema??? joint independent or multinomial?
+```{r}
+pivot_table
+```
+
+```{r}
+pi_1 <- pivot_table$Diabetes[1]/pivot_table$total[1]
+pi_2 <- pivot_table$Diabetes[2]/pivot_table$total[2]
+
+odds1 <- pi_1/(1-pi_1)
+odds2 <- pi_2/(1-pi_2)
+
+odds_ratio <- odds1/odds2
+## odds ratio
+print(odds_ratio)
+```
+
+
+```{r}
+## Confidence interval for odds ratio
+odds_ratio_sd <- sqrt(1/pivot_table$Diabetes[1] + 1/pivot_table$Diabetes[2] + 
+                        1/pivot_table$No_Diabetes[1] + 1/pivot_table$No_Diabetes[2])
+log_ci <- log(odds_ratio) + 1.96*c(-1, 1) * odds_ratio_sd
+print(exp(log_ci))
+```
+
 
 ```{r}
 sessionInfo()
