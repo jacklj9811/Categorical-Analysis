@@ -1,8 +1,10 @@
 ---
-title: "Title: Categorical Analysis on Diabetes"
-author: "Authors: Liangjie Lu, Weiting Lin, Luyang Zhang, Yaocao Chen"
+title: 'Title: Categorical Analysis on Diabetes'
+author: 'Authors: Liangjie Lu, Weiting Lin, Luyang Zhang, Yaocao Chen'
 date: "Date: 2024-02-19"
-output: html_document
+output:
+  html_document: default
+  pdf_document: default
 ---
 
 ```{r, setup, results='hide', message=FALSE, warning=FALSE, include=FALSE}
@@ -15,7 +17,7 @@ library(zoo)
 library(lubridate)
 library(tseries)
 library(forecast)
-library(funtimes)
+#library(funtimes)
 ```
 
 ## Data Loading and Preprocessing
@@ -35,7 +37,7 @@ diabetes.dat$BMI.ord <- diabetes.dat$BMI %>% cut(
   labels = c("Underweight", "Healthy Weight","Overweight", "Obesity"),
   right = FALSE) %>% factor(levels = c("Underweight", "Healthy Weight", "Overweight", "Obesity"))
 
-
+diabetes.dat %>% head()
 
 ```
 
@@ -56,8 +58,11 @@ kable(table.dat, "html", caption = "BMI Categories vs. Diabetes Outcome") %>%
 
 
 # Generate mosaic plot
+
 mosaicplot(table.dat, main = "BMI Categories vs. Diabetes Outcome", col = c("lightblue", "salmon"),
            xlab = "BMI Category", ylab = "Outcome")
+
+
 ```
 
 ## Test for Independence
@@ -139,7 +144,7 @@ for( i in 1:(nrow(pivot_table)-1)){
 
 mu_ij<-mu_ij[1:(nrow(mu_ij) - 1),1:(ncol(mu_ij) - 1)]
 mu_ij%>%
-  kable("html", booktabs = TRUE, caption = "$\\mu_{ij}$ table: $\\frac{n_{i+} + n_{+j}}{n_{++}}$") %>%
+  kable("html", booktabs = TRUE, caption = "$\\mu_{ij}$ table: $\\frac{n_{i+}*n_{+j}}{n_{++}}$") %>%
   kable_styling(full_width = F, position = "center") %>%
   column_spec(1, bold = TRUE, border_right = TRUE)
   
@@ -176,11 +181,14 @@ $H_0: \pi_{ij}=\pi_{i+} \pi_{+j}$
 
 $H_\alpha:$ at least one $\pi_{ij}\neq\pi_{i+} \pi_{+j}$
 
-```{r}
-critical_value=qchisq(p = .95, df = 3)
+i=Obesity, No-Obesity, j=Diabetes, No Diabetes
 
+```{r}
+critical_value=qchisq(p = .95, df = 1)
+p_value_pearson=pchisq(q=44.2914329052853, df=1, lower.tail=FALSE)
+p_value_log_likelihood=pchisq(q=54.0595809062812, df=1, lower.tail=FALSE)
 if(pearson_value > critical_value){
-  cat("Result for pearson independence test under 95% C.I:  \nWe can reject H0. Diabetes outcomes are dependent on and BMI categories!\n")
+  cat(paste("Result for pearson independence test under 95% C.I:  \nWe can reject H0 with p-value of pearson's test",p_value_pearson,". Diabetes outcomes are dependent on and BMI categories!\n"))
   
 }else{
    cat("Result for pearson independence test under 95% C.I:  \nWe can't reject H0, and Diabetes outcomes and BMI categories are independent!\n")
@@ -188,10 +196,10 @@ if(pearson_value > critical_value){
 ```
 
 ```{r}
-critical_value=qchisq(p = .95, df = 3)
+critical_value=qchisq(p = .95, df = 1)
 
 if(log_likelihood_value > critical_value){
-  cat("Result for log likelihood ratio (LR) independence test under 95% C.I: \nWe can reject H0. Diabetes outcomes are dependent on and BMI categories!\n")
+  cat(paste("Result for log likelihood ratio (LR) independence test under 95% C.I: \nWe can reject H0 with p-value of log-likelihood ratio test",p_value_log_likelihood,". Diabetes outcomes are dependent on and BMI categories!\n"))
 }else{
    cat("We can't reject H0, and Diabetes outcomes and BMI categories are independent!")
 }
@@ -226,7 +234,7 @@ r.BMI.Outcome <- cor(diabetes.dat$BMI, diabetes.dat$Outcome.val)
 cat(paste0("Value for exact estimated correlation between diabetes outcomes and BMI categories is ",r.BMI.Outcome ))
 
 # These r values are not so much different from each other
-if(abs(r.BMI.mean.Outcome - r.BMI.Outcome) / r.BMI.Outcome < 0.01){
+if(abs(r.BMI.mean.Outcome - r.BMI.Outcome) / r.BMI.Outcome < 0.05){
   cat("Value for ordinal categorical estimated correlation and value for exact estimated correlation are not so much different from each other.\n")
 }else{
    cat("Value for ordinal categorical estimated correlation and value for exact estimated correlation are not the same thing.\n")
@@ -248,88 +256,67 @@ if(p.value < significance.level){
 ### Fisher Exact tests
 
 ```{r}
-# Contingency table 
-table_contingency <- table(diabetes.dat$BMI.ord, diabetes.dat$Outcome)
+# Contingency table for the 2x2 table
+table_contingency <- table(final_data$BMI.ord, final_data$Outcome)
 # Check if there's independence for all data
 fisher_result <- fisher.test(table_contingency)
 print(fisher_result)
 ```
+```{r}
+#Recreate table contingency for the original dataset 
+table_contingency <- table(diabetes.dat$BMI.ord, diabetes.dat$Outcome)
+``` 
 
 ```{r}
-# Create 2x2 table to test the relationship between different BMI and diabetes 
-# Test for the relationship between underweight and diabetes vs.other categories
-non_under_no_diabetes <- sum(table_contingency["Healthy Weight", "No_Diabetes"]) +
-                               sum(table_contingency["Overweight", "No_Diabetes"]) +
-                               sum(table_contingency["Obesity", "No_Diabetes"])
-non_under_diabetes <- sum(table_contingency["Healthy Weight", "Diabetes"]) +
-                            sum(table_contingency["Overweight", "Diabetes"]) +
-                            sum(table_contingency["Obesity", "Diabetes"])
-under_vs_rest <- matrix(c(table_contingency["Underweight", "No_Diabetes"],non_under_no_diabetes,table_contingency["Underweight", "Diabetes"], non_under_diabetes),nrow = 2, dimnames = list("BMI" = c("Underweight", "Non_Underweight"),"Outcome" = c("No_Diabetes", "Diabetes")))
-# Perform Fisher's Exact Test on underweight vs. others 2x2 table
-fisher_result_underweight <- fisher.test(under_vs_rest)
-print(fisher_result_underweight)
+#Compare Healthy vs. other three categories separately
+#Compare Healthy vs. Underweight
+healthy_no_diabetes <- table_contingency["Healthy Weight", "No_Diabetes"]
+healthy_diabetes <- table_contingency["Healthy Weight", "Diabetes"]
+under_no_diabetes <- table_contingency["Underweight", "No_Diabetes"]
+under_diabetes <- table_contingency["Underweight", "Diabetes"]
+
+healthy_vs_under <- matrix(c(healthy_no_diabetes, under_no_diabetes,healthy_diabetes, under_diabetes),nrow = 2,dimnames = list("BMI" = c("Healthy Weight", "Underweight"),"Outcome" = c("No_Diabetes", "Diabetes")))
+fisher_result_under<- fisher.test(healthy_vs_under)
+print(fisher_result_under)
 ```
 ```{r}
-# Test for the relationship between Healthy weight and other categories
-non_healthy_no_diabetes <- sum(table_contingency["Underweight", "No_Diabetes"]) +
-                               sum(table_contingency["Overweight", "No_Diabetes"]) +
-                               sum(table_contingency["Obesity", "No_Diabetes"])
-non_healthy_diabetes <- sum(table_contingency["Underweight", "Diabetes"]) +
-                            sum(table_contingency["Overweight", "Diabetes"]) +
-                            sum(table_contingency["Obesity", "Diabetes"])
-healthy_vs_rest <- matrix(c(table_contingency["Healthy Weight", "No_Diabetes"],non_healthy_no_diabetes,table_contingency["Healthy Weight", "Diabetes"], non_healthy_diabetes),nrow = 2, dimnames = list("BMI" = c("Healthy", "Non_Healthy"),"Outcome" = c("No_Diabetes", "Diabetes")))
-# Perform Fisher's Exact Test on underweight vs. others 2x2 table
-fisher_result_healthy <- fisher.test(healthy_vs_rest)
-print(fisher_result_healthy)
-``` 
+#Compare Healthy vs. Overweight
+over_no_diabetes <- table_contingency["Overweight", "No_Diabetes"]
+over_diabetes <- table_contingency["Overweight", "Diabetes"]
 
-```{r}
-# Test for the relationship between Overweight and other categories
-non_over_no_diabetes <- sum(table_contingency["Underweight", "No_Diabetes"]) +
-                               sum(table_contingency["Healthy Weight", "No_Diabetes"]) +
-                               sum(table_contingency["Obesity", "No_Diabetes"])
-non_over_diabetes <- sum(table_contingency["Underweight", "Diabetes"]) +
-                            sum(table_contingency["Healthy Weight", "Diabetes"]) +
-                            sum(table_contingency["Obesity", "Diabetes"])
-over_vs_rest <- matrix(c(table_contingency["Overweight", "No_Diabetes"],non_over_no_diabetes,table_contingency["Overweight", "Diabetes"], non_over_diabetes),nrow = 2, dimnames = list("BMI" = c("Overweight", "Non_Overweight"),"Outcome" = c("No_Diabetes", "Diabetes")))
-# Perform Fisher's Exact Test on underweight vs. others 2x2 table
-fisher_result_over <- fisher.test(over_vs_rest)
+healthy_vs_over <- matrix(c(healthy_no_diabetes, over_no_diabetes,healthy_diabetes, over_diabetes),nrow = 2,dimnames = list("BMI" = c("Healthy Weight", "Overweight"),"Outcome" = c("No_Diabetes", "Diabetes")))
+fisher_result_over<- fisher.test(healthy_vs_over)
 print(fisher_result_over)
-``` 
+```
 
 ```{r}
-# Test for the relationship between obesity and other categories
-non_obesity_no_diabetes <- sum(table_contingency["Underweight", "No_Diabetes"]) +
-                               sum(table_contingency["Healthy Weight", "No_Diabetes"]) +
-                               sum(table_contingency["Overweight", "No_Diabetes"])
-non_obesity_diabetes <- sum(table_contingency["Underweight", "Diabetes"]) +
-                            sum(table_contingency["Healthy Weight", "Diabetes"]) +
-                            sum(table_contingency["Overweight", "Diabetes"])
-obesity_vs_rest <- matrix(c(table_contingency["Obesity", "No_Diabetes"],non_obesity_no_diabetes,table_contingency["Obesity", "Diabetes"], non_obesity_diabetes),nrow = 2, dimnames = list("BMI" = c("Obesity", "Non_Obesity"),"Outcome" = c("No_Diabetes", "Diabetes")))
-# Perform Fisher's Exact Test on underweight vs. others 2x2 table
-fisher_result_obesity <- fisher.test(obesity_vs_rest)
+#Compare Healthy vs. Obesity
+obesity_no_diabetes <- table_contingency["Obesity", "No_Diabetes"]
+obesity_diabetes <- table_contingency["Obesity", "Diabetes"]
+
+healthy_vs_obesity <- matrix(c(healthy_no_diabetes, obesity_no_diabetes,healthy_diabetes, obesity_diabetes),nrow = 2,dimnames = list("BMI" = c("Healthy Weight", "Obesity"),"Outcome" = c("No_Diabetes", "Diabetes")))
+fisher_result_obesity<- fisher.test(healthy_vs_obesity)
 print(fisher_result_obesity)
 ``` 
+
 ```{r}
 # Create a p-value and odds ratio table to visualize the relationship
 p_values <- c(
-  underweight_vs_others = fisher_result_underweight$p.value, 
-  healthy_weight_vs_others = fisher_result_healthy$p.value, 
-  overweight_vs_others = fisher_result_over$p.value, 
-  obesity_vs_others = fisher_result_obesity$p.value
+  healthy_vs_under = fisher_result_under$p.value, 
+  healthy_vs_over = fisher_result_over$p.value, 
+  healthy_vs_obesity = fisher_result_obesity$p.value
 )
 odds_ratio <- c(
-  underweight_vs_others = fisher_result_underweight$estimate, 
-  healthy_weight_vs_others = fisher_result_healthy$estimate, 
-  overweight_vs_others = fisher_result_over$estimate, 
-  obesity_vs_others = fisher_result_obesity$estimate
+  healthy_vs_under = fisher_result_under$estimate, 
+  healthy_vs_over = fisher_result_over$estimate, 
+  healthy_vs_obesity = fisher_result_obesity$estimate
 )
 # Create a data frame with the p-values
 results_table <- data.frame(
   Odds_ratio = odds_ratio ,
   P_Value = p_values
 )
-row.names(results_table) <- c("Underweight vs Others", "Healthy Weight vs Others", "Overweight vs Others", "Obesity vs Others")
+row.names(results_table) <- c("Healthy Weight vs. Underweight", "Healthy Weight vs Overweight", "Healthy Weight vs Obesity")
 # Print the table
 print(results_table)
 ```
@@ -337,9 +324,7 @@ print(results_table)
 ### logistic regression (if approved by professor, TBD)
 
 ```{r}
-
-diabetes.dat %>% head()
-model_full <- glm(factor(Outcome) ~ ., data = diabetes.dat, family = 'binomial')
+model_full <- glm(factor(Outcome) ~ .-Outcome.val - BMI.ord, data = diabetes.dat, family = 'binomial')
 summary(model_full)
 ```
 
@@ -347,11 +332,39 @@ summary(model_full)
 model1 <- glm(factor(Outcome) ~ BMI, data = diabetes.dat, family = 'binomial')
 summary(model1)
 ```
-
-### Confounding Variable -- Age
 ```{r}
-
+plot(model1)
 ```
+
+
+### Odds Ratio
+odds ratio = odds for diabetes among no obesity / among obesity
+sampling schema??? joint independent or multinomial?
+```{r}
+pivot_table
+```
+
+```{r}
+pi_1 <- pivot_table$Diabetes[1]/pivot_table$total[1]
+pi_2 <- pivot_table$Diabetes[2]/pivot_table$total[2]
+
+odds1 <- pi_1/(1-pi_1)
+odds2 <- pi_2/(1-pi_2)
+
+odds_ratio <- odds1/odds2
+## odds ratio
+print(odds_ratio)
+```
+
+
+```{r}
+## Confidence interval for odds ratio
+odds_ratio_sd <- sqrt(1/pivot_table$Diabetes[1] + 1/pivot_table$Diabetes[2] + 
+                        1/pivot_table$No_Diabetes[1] + 1/pivot_table$No_Diabetes[2])
+log_ci <- log(odds_ratio) + 1.96*c(-1, 1) * odds_ratio_sd
+print(exp(log_ci))
+```
+
 
 ```{r}
 sessionInfo()
