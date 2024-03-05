@@ -23,12 +23,13 @@ library(funtimes)
 ```{r}
 diabetes.dat <- read.csv("diabetes.csv", header = TRUE)
 
-# Transform data Outcome from 0 to 'Diabetes' and "1" to 'No_Diabetes'
+# Transform data Outcome from 1 to 'Diabetes' and "0" to 'No_Diabetes'
 diabetes.dat$Outcome.val <- diabetes.dat$Outcome
-diabetes.dat$Outcome[diabetes.dat$Outcome == "0"] <- 'Diabetes'
-diabetes.dat$Outcome[diabetes.dat$Outcome == "1"] <- 'No_Diabetes'
+diabetes.dat$Outcome[diabetes.dat$Outcome == "1"] <- 'Diabetes'
+diabetes.dat$Outcome[diabetes.dat$Outcome == "0"] <- 'No_Diabetes'
 
 diabetes.dat$Outcome <- diabetes.dat$Outcome %>% as.factor
+diabetes.dat <- diabetes.dat[diabetes.dat$BMI != 0, ]
 diabetes.dat$BMI.ord <- diabetes.dat$BMI %>% cut(
   breaks = c(-Inf, 18.5, 24.9, 29.9, Inf),
   labels = c("Underweight", "Healthy Weight","Overweight", "Obesity"),
