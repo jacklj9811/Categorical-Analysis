@@ -57,8 +57,11 @@ kable(table.dat, "html", caption = "BMI Categories vs. Diabetes Outcome") %>%
 
 
 # Generate mosaic plot
+
 mosaicplot(table.dat, main = "BMI Categories vs. Diabetes Outcome", col = c("lightblue", "salmon"),
            xlab = "BMI Category", ylab = "Outcome")
+
+
 ```
 
 ## Test for Independence
@@ -140,7 +143,7 @@ for( i in 1:(nrow(pivot_table)-1)){
 
 mu_ij<-mu_ij[1:(nrow(mu_ij) - 1),1:(ncol(mu_ij) - 1)]
 mu_ij%>%
-  kable("html", booktabs = TRUE, caption = "$\\mu_{ij}$ table: $\\frac{n_{i+} + n_{+j}}{n_{++}}$") %>%
+  kable("html", booktabs = TRUE, caption = "$\\mu_{ij}$ table: $\\frac{n_{i+}*n_{+j}}{n_{++}}$") %>%
   kable_styling(full_width = F, position = "center") %>%
   column_spec(1, bold = TRUE, border_right = TRUE)
   
@@ -177,10 +180,12 @@ $H_0: \pi_{ij}=\pi_{i+} \pi_{+j}$
 
 $H_\alpha:$ at least one $\pi_{ij}\neq\pi_{i+} \pi_{+j}$
 
+i=Obesity, No-Obesity, j=Diabetes, No Diabetes
+
 ```{r}
-critical_value=qchisq(p = .95, df = 2)
-p_value_pearson=pchisq(q=44.2914329052853, df=2, lower.tail=FALSE)
-p_value_log_likelihood=pchisq(q=54.0595809062812, df=2, lower.tail=FALSE)
+critical_value=qchisq(p = .95, df = 1)
+p_value_pearson=pchisq(q=44.2914329052853, df=1, lower.tail=FALSE)
+p_value_log_likelihood=pchisq(q=54.0595809062812, df=1, lower.tail=FALSE)
 if(pearson_value > critical_value){
   cat(paste("Result for pearson independence test under 95% C.I:  \nWe can reject H0 with p-value of pearson's test",p_value_pearson,". Diabetes outcomes are dependent on and BMI categories!\n"))
   
@@ -190,7 +195,7 @@ if(pearson_value > critical_value){
 ```
 
 ```{r}
-critical_value=qchisq(p = .95, df = 2)
+critical_value=qchisq(p = .95, df = 1)
 
 if(log_likelihood_value > critical_value){
   cat(paste("Result for log likelihood ratio (LR) independence test under 95% C.I: \nWe can reject H0 with p-value of log-likelihood ratio test",p_value_log_likelihood,". Diabetes outcomes are dependent on and BMI categories!\n"))
