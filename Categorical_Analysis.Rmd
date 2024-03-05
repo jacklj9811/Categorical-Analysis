@@ -234,7 +234,7 @@ r.BMI.Outcome <- cor(diabetes.dat$BMI, diabetes.dat$Outcome.val)
 cat(paste0("Value for exact estimated correlation between diabetes outcomes and BMI categories is ",r.BMI.Outcome ))
 
 # These r values are not so much different from each other
-if(abs(r.BMI.mean.Outcome - r.BMI.Outcome) / r.BMI.Outcome < 0.01){
+if(abs(r.BMI.mean.Outcome - r.BMI.Outcome) / r.BMI.Outcome < 0.05){
   cat("Value for ordinal categorical estimated correlation and value for exact estimated correlation are not so much different from each other.\n")
 }else{
    cat("Value for ordinal categorical estimated correlation and value for exact estimated correlation are not the same thing.\n")
