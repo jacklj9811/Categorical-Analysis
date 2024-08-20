@@ -37,7 +37,7 @@ Our primary research questions are:
 
 ## Statistical Models
 We choose to use these following models to study the relationship between BMI and diabetes incidence:
-- **Independent Test:** Pearson’s Test (𝑿2) / Log Likelihood Test (𝑮2)
+- **Independent Test:** Pearson’s Test ($$X^2$$) / Log Likelihood Test ($$G^2$$)
 - **Ordinal Correlation Test:** Assessing independence by using sample correlation as the test statistic, with mean BMI values for each category as the basis.
 - **Fisher’s Test:** Apply on the whole dataset. Apply on healthy BMI and other three categories to find the relationship between abnormal BMI with healthy BMI.  
 - **Logistics Model with Binomial:** Regress diabetes status on BMI raw scores
