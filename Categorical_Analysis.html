@@ -963,8 +963,8 @@ print(phi)</code></pre>
 ## 0.008553244</code></pre>
 <pre class="r"><code>#cor.test(df_filtered$Diabetes, df_filtered$No_Diabetes, method = &quot;pearson&quot;)</code></pre>
 </div>
-<div id="ordinal-residuals" class="section level3">
-<h3>ordinal residuals</h3>
+<div id="ordinal-correlation-test" class="section level3">
+<h3>Ordinal Correlation Test</h3>
 <pre class="r"><code># Add v values directly to the data frame
 # v values are group-wise means of BMI over BMI categories
 diabetes.dat$BMI.mean &lt;- ave(diabetes.dat$BMI, diabetes.dat$BMI.ord, FUN = mean)
@@ -983,7 +983,7 @@ if(abs(r.BMI.mean.Outcome - r.BMI.Outcome) / r.BMI.Outcome &lt; 0.05){
 }else{
    cat(&quot;Value for ordinal categorical estimated correlation and value for exact estimated correlation are not the same thing.\n&quot;)
 }</code></pre>
-<pre><code>## Value for ordinal categorical estimated correlation and value for exact estimated correlation are not so much different from each other.</code></pre>
+<pre><code>## Value for ordinal categorical estimated correlation and value for exact estimated correlation are not the same thing.</code></pre>
 <pre class="r"><code># H0: rho = 0 vs. H1: rho not= 0
 n &lt;- nrow(diabetes.dat)
 M &lt;- (n - 1) * r.BMI.mean.Outcome ^ 2
@@ -1029,6 +1029,48 @@ print(fisher_result_under)</code></pre>
 <pre><code>## 
 ##  Fisher&#39;s Exact Test for Count Data
 ## 
+<<<<<<< HEAD
+## data:  under_vs_rest
+## p-value = 0.3034
+## alternative hypothesis: true odds ratio is not equal to 1
+## 95 percent confidence interval:
+##  0.3579362       Inf
+## sample estimates:
+## odds ratio 
+##        Inf</code></pre>
+<pre class="r"><code># Test for the relationship between Healthy weight and other categories
+non_healthy_no_diabetes &lt;- sum(table_contingency[&quot;Underweight&quot;, &quot;No_Diabetes&quot;]) +
+                               sum(table_contingency[&quot;Overweight&quot;, &quot;No_Diabetes&quot;]) +
+                               sum(table_contingency[&quot;Obesity&quot;, &quot;No_Diabetes&quot;])
+non_healthy_diabetes &lt;- sum(table_contingency[&quot;Underweight&quot;, &quot;Diabetes&quot;]) +
+                            sum(table_contingency[&quot;Overweight&quot;, &quot;Diabetes&quot;]) +
+                            sum(table_contingency[&quot;Obesity&quot;, &quot;Diabetes&quot;])
+healthy_vs_rest &lt;- matrix(c(table_contingency[&quot;Healthy Weight&quot;, &quot;No_Diabetes&quot;],non_healthy_no_diabetes,table_contingency[&quot;Healthy Weight&quot;, &quot;Diabetes&quot;], non_healthy_diabetes),nrow = 2, dimnames = list(&quot;BMI&quot; = c(&quot;Healthy&quot;, &quot;Non_Healthy&quot;),&quot;Outcome&quot; = c(&quot;No_Diabetes&quot;, &quot;Diabetes&quot;)))
+# Perform Fisher&#39;s Exact Test on underweight vs. others 2x2 table
+fisher_result_healthy &lt;- fisher.test(healthy_vs_rest)
+print(fisher_result_healthy)</code></pre>
+<pre><code>## 
+##  Fisher&#39;s Exact Test for Count Data
+## 
+## data:  healthy_vs_rest
+## p-value = 3.308e-12
+## alternative hypothesis: true odds ratio is not equal to 1
+## 95 percent confidence interval:
+##   3.993361 22.697812
+## sample estimates:
+## odds ratio 
+##   8.742339</code></pre>
+<pre class="r"><code># Test for the relationship between Overweight and other categories
+non_over_no_diabetes &lt;- sum(table_contingency[&quot;Underweight&quot;, &quot;No_Diabetes&quot;]) +
+                               sum(table_contingency[&quot;Healthy Weight&quot;, &quot;No_Diabetes&quot;]) +
+                               sum(table_contingency[&quot;Obesity&quot;, &quot;No_Diabetes&quot;])
+non_over_diabetes &lt;- sum(table_contingency[&quot;Underweight&quot;, &quot;Diabetes&quot;]) +
+                            sum(table_contingency[&quot;Healthy Weight&quot;, &quot;Diabetes&quot;]) +
+                            sum(table_contingency[&quot;Obesity&quot;, &quot;Diabetes&quot;])
+over_vs_rest &lt;- matrix(c(table_contingency[&quot;Overweight&quot;, &quot;No_Diabetes&quot;],non_over_no_diabetes,table_contingency[&quot;Overweight&quot;, &quot;Diabetes&quot;], non_over_diabetes),nrow = 2, dimnames = list(&quot;BMI&quot; = c(&quot;Overweight&quot;, &quot;Non_Overweight&quot;),&quot;Outcome&quot; = c(&quot;No_Diabetes&quot;, &quot;Diabetes&quot;)))
+# Perform Fisher&#39;s Exact Test on underweight vs. others 2x2 table
+fisher_result_over &lt;- fisher.test(over_vs_rest)
+=======
 ## data:  healthy_vs_under
 ## p-value = 1
 ## alternative hypothesis: true odds ratio is not equal to 1
@@ -1043,10 +1085,31 @@ over_diabetes &lt;- table_contingency[&quot;Overweight&quot;, &quot;Diabetes&quo
 
 healthy_vs_over &lt;- matrix(c(healthy_no_diabetes, over_no_diabetes,healthy_diabetes, over_diabetes),nrow = 2,dimnames = list(&quot;BMI&quot; = c(&quot;Healthy Weight&quot;, &quot;Overweight&quot;),&quot;Outcome&quot; = c(&quot;No_Diabetes&quot;, &quot;Diabetes&quot;)))
 fisher_result_over&lt;- fisher.test(healthy_vs_over)
+>>>>>>> 5fcbfa0b62bbf8d29575295f683ee78348785611
 print(fisher_result_over)</code></pre>
 <pre><code>## 
 ##  Fisher&#39;s Exact Test for Count Data
 ## 
+<<<<<<< HEAD
+## data:  over_vs_rest
+## p-value = 1.962e-05
+## alternative hypothesis: true odds ratio is not equal to 1
+## 95 percent confidence interval:
+##  1.543369 3.548275
+## sample estimates:
+## odds ratio 
+##   2.319634</code></pre>
+<pre class="r"><code># Test for the relationship between obesity and other categories
+non_obesity_no_diabetes &lt;- sum(table_contingency[&quot;Underweight&quot;, &quot;No_Diabetes&quot;]) +
+                               sum(table_contingency[&quot;Healthy Weight&quot;, &quot;No_Diabetes&quot;]) +
+                               sum(table_contingency[&quot;Overweight&quot;, &quot;No_Diabetes&quot;])
+non_obesity_diabetes &lt;- sum(table_contingency[&quot;Underweight&quot;, &quot;Diabetes&quot;]) +
+                            sum(table_contingency[&quot;Healthy Weight&quot;, &quot;Diabetes&quot;]) +
+                            sum(table_contingency[&quot;Overweight&quot;, &quot;Diabetes&quot;])
+obesity_vs_rest &lt;- matrix(c(table_contingency[&quot;Obesity&quot;, &quot;No_Diabetes&quot;],non_obesity_no_diabetes,table_contingency[&quot;Obesity&quot;, &quot;Diabetes&quot;], non_obesity_diabetes),nrow = 2, dimnames = list(&quot;BMI&quot; = c(&quot;Obesity&quot;, &quot;Non_Obesity&quot;),&quot;Outcome&quot; = c(&quot;No_Diabetes&quot;, &quot;Diabetes&quot;)))
+# Perform Fisher&#39;s Exact Test on underweight vs. others 2x2 table
+fisher_result_obesity &lt;- fisher.test(obesity_vs_rest)
+=======
 ## data:  healthy_vs_over
 ## p-value = 0.001175
 ## alternative hypothesis: true odds ratio is not equal to 1
@@ -1061,6 +1124,7 @@ obesity_diabetes &lt;- table_contingency[&quot;Obesity&quot;, &quot;Diabetes&quo
 
 healthy_vs_obesity &lt;- matrix(c(healthy_no_diabetes, obesity_no_diabetes,healthy_diabetes, obesity_diabetes),nrow = 2,dimnames = list(&quot;BMI&quot; = c(&quot;Healthy Weight&quot;, &quot;Obesity&quot;),&quot;Outcome&quot; = c(&quot;No_Diabetes&quot;, &quot;Diabetes&quot;)))
 fisher_result_obesity&lt;- fisher.test(healthy_vs_obesity)
+>>>>>>> 5fcbfa0b62bbf8d29575295f683ee78348785611
 print(fisher_result_obesity)</code></pre>
 <pre><code>## 
 ##  Fisher&#39;s Exact Test for Count Data
@@ -1069,10 +1133,17 @@ print(fisher_result_obesity)</code></pre>
 ## p-value = 1.804e-15
 ## alternative hypothesis: true odds ratio is not equal to 1
 ## 95 percent confidence interval:
+<<<<<<< HEAD
+##  0.1502992 0.3236123
+## sample estimates:
+## odds ratio 
+##  0.2222513</code></pre>
+=======
 ##   5.242339 30.172822
 ## sample estimates:
 ## odds ratio 
 ##   11.55607</code></pre>
+>>>>>>> 5fcbfa0b62bbf8d29575295f683ee78348785611
 <pre class="r"><code># Create a p-value and odds ratio table to visualize the relationship
 p_values &lt;- c(
   healthy_vs_under = fisher_result_under$p.value, 
@@ -1092,6 +1163,34 @@ results_table &lt;- data.frame(
 row.names(results_table) &lt;- c(&quot;Healthy Weight vs. Underweight&quot;, &quot;Healthy Weight vs Overweight&quot;, &quot;Healthy Weight vs Obesity&quot;)
 # Print the table
 print(results_table)</code></pre>
+<<<<<<< HEAD
+<pre><code>##                          Odds_ratio      P_Value
+## Underweight vs Others           Inf 3.034345e-01
+## Healthy Weight vs Others  8.7423386 3.308168e-12
+## Overweight vs Others      2.3196345 1.961835e-05
+## Obesity vs Others         0.2222513 5.726074e-18</code></pre>
+</div>
+<div id="logistic-regression-if-approved-by-professor-tbd" class="section level3">
+<h3>logistic regression (if approved by professor, TBD)</h3>
+<pre class="r"><code>diabetes.dat %&gt;% head()</code></pre>
+<pre><code>##   Pregnancies Glucose BloodPressure SkinThickness Insulin  BMI
+## 1           6     148            72            35       0 33.6
+## 2           1      85            66            29       0 26.6
+## 3           8     183            64             0       0 23.3
+## 4           1      89            66            23      94 28.1
+## 5           0     137            40            35     168 43.1
+## 6           5     116            74             0       0 25.6
+##   DiabetesPedigreeFunction Age     Outcome Outcome.val        BMI.ord BMI.mean
+## 1                    0.627  50    Diabetes           1        Obesity 36.48197
+## 2                    0.351  31 No_Diabetes           0     Overweight 27.41657
+## 3                    0.672  32    Diabetes           1 Healthy Weight 22.74752
+## 4                    0.167  21 No_Diabetes           0     Overweight 27.41657
+## 5                    2.288  33    Diabetes           1        Obesity 36.48197
+## 6                    0.201  30 No_Diabetes           0     Overweight 27.41657</code></pre>
+<pre class="r"><code>model_full &lt;- glm(factor(Outcome) ~ ., data = diabetes.dat, family = &#39;binomial&#39;)</code></pre>
+<pre><code>## Warning: glm.fit:算法没有聚合</code></pre>
+<pre class="r"><code>summary(model_full)</code></pre>
+=======
 <pre><code>##                                Odds_ratio      P_Value
 ## Healthy Weight vs. Underweight    0.00000 1.000000e+00
 ## Healthy Weight vs Overweight      3.70928 1.175126e-03
@@ -1101,12 +1200,40 @@ print(results_table)</code></pre>
 <h3>logistic regression (if approved by professor, TBD)</h3>
 <pre class="r"><code>model_full &lt;- glm(factor(Outcome) ~ .-Outcome.val - BMI.ord, data = diabetes.dat, family = &#39;binomial&#39;)
 summary(model_full)</code></pre>
+>>>>>>> 5fcbfa0b62bbf8d29575295f683ee78348785611
 <pre><code>## 
 ## Call:
 ## glm(formula = factor(Outcome) ~ . - Outcome.val - BMI.ord, family = &quot;binomial&quot;, 
 ##     data = diabetes.dat)
 ## 
 ## Deviance Residuals: 
+<<<<<<< HEAD
+##        Min          1Q      Median          3Q         Max  
+## -2.409e-06  -2.409e-06   2.409e-06   2.409e-06   2.409e-06  
+## 
+## Coefficients: (1 not defined because of singularities)
+##                            Estimate Std. Error z value Pr(&gt;|z|)
+## (Intercept)               2.657e+01  1.967e+05   0.000    1.000
+## Pregnancies               2.819e-13  4.668e+03   0.000    1.000
+## Glucose                  -1.196e-12  4.981e+02   0.000    1.000
+## BloodPressure            -9.425e-14  7.563e+02   0.000    1.000
+## SkinThickness            -7.135e-13  9.990e+02   0.000    1.000
+## Insulin                   1.895e-13  1.339e+02   0.000    1.000
+## BMI                      -1.254e-12  3.169e+03   0.000    1.000
+## DiabetesPedigreeFunction  3.280e-11  4.098e+04   0.000    1.000
+## Age                      -4.368e-12  1.394e+03   0.000    1.000
+## Outcome.val              -5.313e+01  3.278e+04  -0.002    0.999
+## BMI.ordHealthy Weight    -1.173e-09  1.827e+05   0.000    1.000
+## BMI.ordOverweight        -2.168e-09  1.831e+05   0.000    1.000
+## BMI.ordObesity           -2.158e-09  1.885e+05   0.000    1.000
+## BMI.mean                         NA         NA      NA       NA
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 9.8153e+02  on 756  degrees of freedom
+## Residual deviance: 4.3918e-09  on 744  degrees of freedom
+## AIC: 26
+=======
 ##     Min       1Q   Median       3Q      Max  
 ## -2.9319  -0.7119   0.3693   0.7214   2.5884  
 ## 
@@ -1130,6 +1257,7 @@ summary(model_full)</code></pre>
 ##     Null deviance: 981.53  on 756  degrees of freedom
 ## Residual deviance: 700.09  on 747  degrees of freedom
 ## AIC: 720.09
+>>>>>>> 5fcbfa0b62bbf8d29575295f683ee78348785611
 ## 
 ## Number of Fisher Scoring iterations: 5</code></pre>
 <pre class="r"><code>model1 &lt;- glm(factor(Outcome) ~ BMI, data = diabetes.dat, family = &#39;binomial&#39;)

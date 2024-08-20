@@ -218,7 +218,7 @@ print(phi)
 #cor.test(df_filtered$Diabetes, df_filtered$No_Diabetes, method = "pearson")
 ```
 
-### ordinal residuals
+### Ordinal Correlation Test
 
 ```{r}
 # Add v values directly to the data frame
